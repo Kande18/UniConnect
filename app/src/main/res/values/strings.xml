@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Application strings -->
+    <!-- General -->
+    <string name="app_name">UniConnect</string>
+    <string name="action_save">Save</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_register">Register</string>
+    <string name="action_sign_in">Sign In</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_share">Share</string>
+    <string name="action_review">Review</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_request_change">Request Change</string>
+
+    <!-- Validation messages -->
+    <string name="error_student_number_invalid">Student number must be exactly 9 digits.</string>
+    <string name="error_student_number_duplicate">Student number already exists.</string>
+    <string name="error_name_required">Name is required (2‑100 characters).</string>
+    <string name="error_programme_required">Select a programme.</string>
+    <string name="error_group_full">Group is full.</string>
+    <string name="error_network">Network error. Tap to retry.</string>
+    <string name="error_offline">No internet connection. Changes will be saved locally.</string>
+    <string name="error_sync_failed">Sync failed. Action required.</string>
+
+    <!-- UI state messages -->
+    <string name="state_loading">Loading…</string>
+    <string name="state_empty">No data found.</string>
+    <string name="state_saved_locally">Saved locally.</string>
+    <string name="state_pending">Pending verification.</string>
+    <string name="state_syncing">Syncing…</string>
+    <string name="state_synced">✓ Synced</string>
+    <string name="state_action_required">Action required.</string>
+    <string name="state_conflict">Conflict detected.</string>
+    <string name="state_group_full">Group full.</string>
+    <string name="state_session_expired">Session expired. Please sign in again.</string>
+
+    <!-- Accessibility strings -->
+    <string name="a11y_error_prefix">Error:</string>
+    <string name="a11y_status_prefix">Status:</string>
+    <string name="a11y_button_prefix">Button:</string>
+    <string name="a11y_field_label_prefix">Field:</string>
+
+    <!-- Labels for fields -->
+    <string name="label_name">Name</string>
+    <string name="label_student_number">Student Number</string>
+    <string name="label_programme">Programme</string>
+    <string name="label_password">Password</string>
+    <string name="label_confirm_password">Confirm Password</string>
+    <string name="label_lab_group">Lab Group</string>
+    <string name="label_occupancy">Occupancy</string>
+    <string name="welcome_title">Welcome to UniConnect</string>
+    <string name="welcome_subtitle">Your gateway to lab group management</string>
+    <string name="btn_student_sign_in">Student Sign In</string>
+    <string name="btn_student_register">Student Register</string>
+    <string name="btn_lecturer_sign_in">Lecturer Sign In</string>
+    <string name="hint_student_number">Enter 9‑digit student number</string>
+    <string name="hint_password">Enter password</string>
+    <string name="error_invalid_credentials">Invalid student number or password.</string>
+    <string name="btn_sign_in">Sign In</string>
+    <string name="link_register">Register</string>
+    <string name="link_lecturer_sign_in">Lecturer Sign In</string>
+
+    <!-- Welcome Screen (UNI-CONNECT Portal Selection) -->
+    <string name="welcome_app_title">UNI-CONNECT</string>
+    <string name="welcome_tagline">Empowering academic\nconnections &amp; collaboration.</string>
+    <string name="portal_selection_label">Select your portal to continue:</string>
+    <string name="student_portal_title">Student Portal</string>
+    <string name="lecturer_portal_title">Lecturer Portal</string>
+    <string name="desc_app_logo">UNI-CONNECT logo with connected community emblem</string>
+    <string name="desc_hero_illustration">Illustration of university building and students on campus</string>
+    <string name="desc_student_portal">Open Student Portal</string>
+    <string name="desc_lecturer_portal">Open Lecturer Portal</string>
+    <string name="msg_new_student">New student?</string>
+    <string name="action_register_now">Register here</string>
+    <string name="desc_register_direct">Register as a new student</string>
+</resources>
