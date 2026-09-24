@@ -1,24 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutLecturerLoginRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/spacing_large"
     android:background="@color/welcome_bg"
     tools:context=".LecturerLoginActivity">
 
-    <TextView
-        android:id="@+id/tvLecturerLoginTitle"
-        style="@style/TextAppearance.MaterialComponents.Headline5"
-        android:layout_width="0dp"
+    <!-- Top App Bar / Toolbar -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayoutLecturer"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/btn_lecturer_sign_in"
-        android:textColor="@color/title_dark_slate"
-        android:gravity="center"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="@dimen/spacing_large" />
+        android:background="@color/primary_dark"
+        app:elevation="2dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbarLecturerLogin"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationContentDescription="Navigate back"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            app:navigationIconTint="@color/white"
+            app:title="@string/lecturer_portal_title"
+            app:titleTextColor="@color/white" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Scrollable Content -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/spacing_large"
+            android:paddingTop="@dimen/spacing_large"
+            android:paddingEnd="@dimen/spacing_large"
+            android:paddingBottom="@dimen/spacing_xlarge">
+
+            <!-- Lecturer Symbol Emblem Badge -->
+            <ImageView
+                android:id="@+id/ivLecturerEmblem"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:layout_marginBottom="@dimen/spacing_medium"
+                android:contentDescription="@string/desc_lecturer_portal"
+                android:src="@drawable/ic_lecturer_symbol"
+                app:tint="@color/primary_dark" />
+
+            <!-- Title & Subtitle -->
+            <TextView
+                android:id="@+id/tvLecturerTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lecturer_login_heading"
+                android:textColor="@color/title_dark_slate"
+                android:textSize="@dimen/text_size_xlarge"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvLecturerSubtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="@dimen/spacing_large"
+                android:gravity="center"
+                android:lineSpacingExtra="2dp"
+                android:text="@string/lecturer_login_subtitle"
+                android:textColor="@color/tagline_charcoal"
+                android:textSize="@dimen/text_size_normal" />
+
+            <!-- Error Banner (hidden by default) -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardLecturerError"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_medium"
+                android:visibility="gone"
+                app:cardBackgroundColor="#FDE8E8"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="0dp"
+                app:strokeColor="#F05252"
+                app:strokeWidth="1dp">
+
+                <TextView
+                    android:id="@+id/tvLecturerErrorMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/spacing_medium"
+                    android:text="@string/error_invalid_credentials"
+                    android:textColor="@color/status_error"
+                    android:textSize="@dimen/text_size_normal" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- 1. Staff Identifier Field -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilLecturerId"
+                style="@style/Widget.App.TextInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_medium"
+                android:hint="@string/label_lecturer_id"
+                app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etLecturerId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:textColor="@color/title_dark_slate"
+                    android:textColorHint="@color/tagline_charcoal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- 2. Password Field -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilLecturerPassword"
+                style="@style/Widget.App.TextInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_large"
+                android:hint="@string/label_password"
+                app:endIconMode="password_toggle"
+                app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etLecturerPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:textColor="@color/title_dark_slate"
+                    android:textColorHint="@color/tagline_charcoal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Sign In Primary Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnLecturerSignIn"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/portal_button_height"
+                android:backgroundTint="@color/primary_dark"
+                android:elevation="2dp"
+                android:text="@string/btn_lecturer_login"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_medium"
+                android:textStyle="bold"
+                app:cornerRadius="12dp" />
+
+            <!-- Switch to Student Portal -->
+            <TextView
+                android:id="@+id/tvSwitchToStudentPortal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:minHeight="@dimen/min_touch_target"
+                android:gravity="center_vertical"
+                android:clickable="true"
+                android:focusable="true"
+                android:text="@string/link_student_portal"
+                android:textColor="@color/student_portal_blue"
+                android:textSize="@dimen/text_size_normal"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

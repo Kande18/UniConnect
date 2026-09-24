@@ -74,4 +74,41 @@
     <string name="msg_new_student">New student?</string>
     <string name="action_register_now">Register here</string>
     <string name="desc_register_direct">Register as a new student</string>
+
+    <!-- Student Registration Strings (§13.2) -->
+    <string name="register_title">Student Registration</string>
+    <string name="register_subtitle">Register to access your lab group and academic portal</string>
+    <string name="label_claim_code">Claim Code</string>
+    <string name="hint_claim_code">Enter code provided by department</string>
+    <string name="helper_name">2–100 characters</string>
+    <string name="helper_student_number">Exactly 9 digits (preserves leading zeroes)</string>
+    <string name="helper_claim_code">Required for department ownership verification</string>
+    <string name="error_password_length">Password must be at least 6 characters.</string>
+    <string name="error_passwords_dont_match">Passwords do not match.</string>
+    <string name="error_claim_code_required">Claim code is required.</string>
+    <string name="msg_already_have_account">Already registered?</string>
+    <string name="action_sign_in_link">Sign in here</string>
+    <string name="registration_success_message">Registration complete! You can now sign in.</string>
+
+    <!-- Student Login Strings (§13.3) -->
+    <string name="login_welcome_back">Student Sign In</string>
+    <string name="login_student_subtitle">Enter your 9-digit student credentials to sign in</string>
+    <string name="msg_no_account">Don\'t have an account?</string>
+
+    <!-- Lecturer Login Strings (§14.1) -->
+    <string name="lecturer_login_heading">Lecturer Sign In</string>
+    <string name="lecturer_login_subtitle">Sign in to manage student lab groups and roster allocations</string>
+    <string name="label_lecturer_id">Staff Identifier</string>
+    <string name="hint_lecturer_id">Enter staff ID or email</string>
+    <string name="error_lecturer_id_required">Staff identifier is required.</string>
+    <string name="btn_lecturer_login">Sign In to Dashboard</string>
+    <string name="link_back_to_welcome">Back to Main Gateway</string>
+    <string name="link_student_portal">Go to Student Portal</string>
+
+    <!-- Programme Choice Array (§13.2) -->
+    <string-array name="programme_options">
+        <item>CS (Computer Science)</item>
+        <item>IT (Information Technology)</item>
+        <item>DS (Data Science)</item>
+    </string-array>
 </resources>
