@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    layout_group_assign_row.xml  (§14.7 — Reusable group assignment row)
+    ======================================================================
+    A single selectable group row used in GroupAssignmentActivity.
+    Shows: RadioButton (label) + occupancy text + FULL badge if at capacity.
+
+    IDs for binding:
+      radioGroup     — the radio button (label = group name e.g. "G01")
+      tvGroupOccupancy — "10 / 15 students"
+      tvFullBadge    — "FULL" label, visibility toggled by Activity
+-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="@color/white"
+    android:paddingHorizontal="16dp"
+    android:paddingVertical="14dp"
+    android:layout_marginBottom="1dp">
+
+    <!-- Radio button with group label -->
+    <RadioButton
+        android:id="@+id/radioGroup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="G01"
+        android:textColor="@color/title_dark_slate"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:buttonTint="@color/action_teal"
+        tools:text="G01" />
+
+    <!-- Occupancy count -->
+    <TextView
+        android:id="@+id/tvGroupOccupancy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:textColor="@color/tagline_charcoal"
+        android:textSize="13sp"
+        tools:text="10 / 15 students" />
+
+    <!-- FULL badge (hidden unless group is at capacity) -->
+    <TextView
+        android:id="@+id/tvFullBadge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/group_assign_full_tag"
+        android:textColor="@color/white"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        android:background="@drawable/bg_group_badge"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="3dp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        tools:ignore="SmallSp" />
+
+</LinearLayout>

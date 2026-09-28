@@ -1,37 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutStudentPortalRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/welcome_bg"
     tools:context=".StudentProfileActivity">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbarProfile"
-        android:layout_width="0dp"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/primary_dark"
-        app:navigationIcon="@drawable/ic_arrow_back"
-        app:navigationIconTint="@color/white"
-        app:title="Student Profile"
-        app:titleTextColor="@color/white"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/tvProfilePlaceholder"
-        android:layout_width="wrap_content"
+    <!-- Top App Bar / Toolbar -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayoutPortal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Welcome to Student Portal\n(Phase 3 Destination)"
-        android:textColor="@color/title_dark_slate"
-        android:textSize="@dimen/text_size_large"
-        android:textStyle="bold"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/toolbarProfile"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:background="@color/primary_dark"
+        app:elevation="2dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbarStudentPortal"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="Student Portal"
+            app:titleTextColor="@color/white">
+
+            <!-- Sign Out Action Button on Toolbar Right (§21) -->
+            <ImageView
+                android:id="@+id/btnToolbarSignOut"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="end"
+                android:layout_marginEnd="12dp"
+                android:padding="12dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:contentDescription="Sign out of student account"
+                android:src="@drawable/ic_logout"
+                app:tint="@color/white" />
+
+        </com.google.android.material.appbar.MaterialToolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Main Dynamic Tab Container -->
+    <FrameLayout
+        android:id="@+id/fragmentContainerStudent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <!-- 4-Button Bottom Navigation Bar for Quick Page Changing -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavStudent"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        app:elevation="8dp"
+        app:itemIconSize="22dp"
+        app:itemIconTint="@color/bottom_nav_color_selector"
+        app:itemTextColor="@color/bottom_nav_color_selector"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/menu_student_bottom_nav" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

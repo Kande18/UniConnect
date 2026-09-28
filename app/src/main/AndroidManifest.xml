@@ -38,6 +38,30 @@
             android:name=".LecturerDashboardActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".StudentGroupActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".EditStudentProfileActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".GroupChangeRequestActivity"
+            android:exported="false" />
+        <!-- Phase 5 destinations — registered here so Phase 4 navigation compiles -->
+        <activity
+            android:name=".LecturerRosterActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".LecturerStudentEditorActivity"
+            android:exported="false" />
+        <!-- Phase 5 — Group Assignment and Filter (registered for Phase 5 navigation) -->
+        <activity
+            android:name=".GroupAssignmentActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>

@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    activity_lecturer_roster.xml  (§14.3 + §14.4 + §14.5)
+    =======================================================
+    Lecturer Student Roster — full implementation.
+
+    Contains:
+      • AppBar toolbar with back navigation
+      • Search bar (TextInputLayout with search icon)
+      • Filter row (Programme chip group + Group chip group)
+      • Active-filter summary banner (shown only when filters applied)
+      • State switcher:
+          - viewLoading   : ProgressBar + "Loading students…"
+          - viewEmpty     : Empty state card
+          - viewError     : Error state card with retry
+          - viewOffline   : Offline banner
+          - recyclerStudents : RecyclerView list
+      • FAB: Add Student
+
+    Architecture note for Backend team:
+      Observe a LiveData<List<Student>> and call RosterAdapter.submitList().
+      Toggle the visibility of state views via a UiState enum.
+      The search EditText and filter chips expose IDs for ViewModel wiring.
+-->
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/welcome_bg"
+    tools:context=".LecturerRosterActivity">
+
+    <!-- ══ APP BAR ══════════════════════════════════════════════════════════ -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarRoster"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary_dark"
+        app:elevation="4dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbarRoster"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/primary_dark"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            app:navigationIconTint="@color/white"
+            app:title="@string/roster_title"
+            app:titleTextColor="@color/white" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- ══ MAIN CONTENT ══════════════════════════════════════════════════════ -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <!-- ── SEARCH BAR ──────────────────────────────────────────────── -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilSearch"
+            style="@style/Widget.App.TextInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="4dp"
+            app:startIconDrawable="@drawable/ic_search"
+            app:startIconTint="@color/tagline_charcoal"
+            app:endIconMode="clear_text"
+            android:hint="@string/hint_search_students"
+            android:contentDescription="@string/desc_search_field">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:imeOptions="actionSearch"
+                android:textColor="@color/title_dark_slate"
+                android:textColorHint="@color/tagline_charcoal"
+                android:maxLines="1" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- ── FILTER ROW ──────────────────────────────────────────────── -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="6dp"
+            android:clipToPadding="false">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <!-- Filter button opens bottom-sheet dialog -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnOpenFilter"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/btn_filter"
+                    android:textColor="@color/action_teal"
+                    android:textSize="13sp"
+                    app:strokeColor="@color/action_teal"
+                    app:strokeWidth="1dp"
+                    app:cornerRadius="18dp"
+                    app:icon="@drawable/ic_filter"
+                    app:iconTint="@color/action_teal"
+                    app:iconSize="16dp"
+                    android:contentDescription="@string/desc_filter_button" />
+
+                <!-- Active filter chips (shown dynamically from Java) -->
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroupActiveFilters"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:singleLine="true" />
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+        <!-- ── OFFLINE BANNER (hidden by default) ──────────────────────── -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/bannerOffline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginBottom="4dp"
+            android:visibility="gone"
+            app:cardCornerRadius="8dp"
+            app:cardBackgroundColor="#FFF3E0"
+            app:cardElevation="0dp"
+            tools:visibility="visible">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:text="@string/roster_offline"
+                android:textColor="@color/status_warning"
+                android:textSize="13sp"
+                android:drawablePadding="8dp" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- ── STATE: LOADING ───────────────────────────────────────────── -->
+        <LinearLayout
+            android:id="@+id/viewLoading"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone"
+            tools:visibility="gone">
+
+            <ProgressBar
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/action_teal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/roster_loading"
+                android:textColor="@color/tagline_charcoal"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <!-- ── STATE: EMPTY ─────────────────────────────────────────────── -->
+        <LinearLayout
+            android:id="@+id/viewEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="32dp"
+            android:visibility="gone"
+            tools:visibility="gone">
+
+            <TextView
+                android:id="@+id/tvEmptyMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/roster_empty"
+                android:textColor="@color/tagline_charcoal"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/tvEmptyHint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Try adjusting your search or filters."
+                android:textColor="@color/tagline_charcoal"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+        <!-- ── STATE: ERROR ─────────────────────────────────────────────── -->
+        <LinearLayout
+            android:id="@+id/viewError"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="32dp"
+            android:visibility="gone"
+            tools:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/roster_error"
+                android:textColor="@color/status_error"
+                android:textSize="15sp"
+                android:gravity="center" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnRetry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Retry"
+                app:backgroundTint="@color/action_teal" />
+
+        </LinearLayout>
+
+        <!-- ── STATE: STUDENT LIST ──────────────────────────────────────── -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerStudents"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingHorizontal="12dp"
+            android:paddingBottom="88dp"
+            android:clipToPadding="false"
+            android:scrollbars="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_student_card"
+            tools:itemCount="5" />
+
+    </LinearLayout>
+
+    <!-- ══ FAB — Add Student ═════════════════════════════════════════════════ -->
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fabAddStudent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:text="Add Student"
+        android:textColor="@color/white"
+        app:backgroundTint="@color/action_teal"
+        app:icon="@drawable/ic_person_add"
+        app:iconTint="@color/white"
+        android:contentDescription="@string/editor_title_add" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

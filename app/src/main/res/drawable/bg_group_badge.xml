@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    bg_group_badge.xml
+    Group label badge background (teal rounded rectangle)
+    Used in layout_group_stat_card.xml for the "G01" label.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/action_teal" />
+    <corners android:radius="4dp" />
+</shape>

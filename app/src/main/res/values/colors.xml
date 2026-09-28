@@ -26,4 +26,7 @@
     <color name="lecturer_portal_teal_border">#2E0D9488</color>
     <color name="lecturer_portal_pressed">#F0FDFA</color>
     <color name="white">#FFFFFF</color>
+
+    <!-- Launcher icon adaptive background -->
+    <color name="ic_launcher_background">#FFFFFF</color>
 </resources>

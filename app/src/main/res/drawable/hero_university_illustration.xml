@@ -6,12 +6,12 @@
 
     <!-- Campus Ground Base Line -->
     <path
-        android:strokeColor="#CBD5E1"
+        android:strokeColor="#6f839cff"
         android:strokeWidth="1.5"
         android:strokeLineCap="round"
         android:pathData="M15,168 L325,168" />
     <path
-        android:strokeColor="#E2E8F0"
+        android:strokeColor="#6d92c2ff"
         android:strokeWidth="1"
         android:strokeLineCap="round"
         android:pathData="M30,174 L310,174" />

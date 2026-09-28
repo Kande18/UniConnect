@@ -49,6 +49,7 @@
     <string name="label_confirm_password">Confirm Password</string>
     <string name="label_lab_group">Lab Group</string>
     <string name="label_occupancy">Occupancy</string>
+    <string name="label_occupancy_of">/ %d</string>
     <string name="welcome_title">Welcome to UniConnect</string>
     <string name="welcome_subtitle">Your gateway to lab group management</string>
     <string name="btn_student_sign_in">Student Sign In</string>
@@ -65,8 +66,8 @@
     <string name="welcome_app_title">UNI-CONNECT</string>
     <string name="welcome_tagline">Empowering academic\nconnections &amp; collaboration.</string>
     <string name="portal_selection_label">Select your portal to continue:</string>
-    <string name="student_portal_title">Student Portal</string>
-    <string name="lecturer_portal_title">Lecturer Portal</string>
+    <string name="student_portal_title">Student Login</string>
+    <string name="lecturer_portal_title">Lecturer Login</string>
     <string name="desc_app_logo">UNI-CONNECT logo with connected community emblem</string>
     <string name="desc_hero_illustration">Illustration of university building and students on campus</string>
     <string name="desc_student_portal">Open Student Portal</string>
@@ -111,4 +112,80 @@
         <item>IT (Information Technology)</item>
         <item>DS (Data Science)</item>
     </string-array>
+
+    <!-- Lecturer Dashboard Strings (§14.2) -->
+    <string name="dashboard_title">Lecturer Dashboard</string>
+    <string name="dashboard_welcome">Welcome back, Lecturer</string>
+    <string name="dashboard_subtitle">Lab Group Management Overview</string>
+    <string name="dashboard_section_groups">Group Summary</string>
+    <string name="dashboard_section_quick">Quick Actions</string>
+    <string name="dashboard_total_students">Total Students</string>
+    <string name="dashboard_unassigned">Unassigned</string>
+    <string name="dashboard_btn_view_roster">View Student Roster</string>
+    <string name="dashboard_btn_add_student">Add Student</string>
+    <string name="dashboard_sync_status">✓ Synced</string>
+    <string name="dashboard_sign_out">Sign Out</string>
+    <string name="desc_sign_out">Sign out of lecturer dashboard</string>
+    <string name="desc_dashboard_group_card">Group %s statistics card</string>
+    <string name="a11y_total_students">Total active students: %d</string>
+    <string name="a11y_group_count">%s has %d students</string>
+
+    <!-- Lecturer Student Roster Strings (§14.3) -->
+    <string name="roster_title">Student Roster</string>
+    <string name="roster_empty">No students found.</string>
+    <string name="roster_empty_search">No students match your search.</string>
+    <string name="roster_loading">Loading students…</string>
+    <string name="roster_error">Could not load students. Check your connection and try again.</string>
+    <string name="roster_offline">Offline — showing cached data.</string>
+    <string name="hint_search_students">Search by name or student number</string>
+    <string name="filter_label_programme">Programme</string>
+    <string name="filter_label_group">Lab Group</string>
+    <string name="filter_all">All</string>
+    <string name="btn_filter">Filter</string>
+    <string name="btn_search">Search</string>
+    <string name="desc_search_field">Search students by name or student number</string>
+    <string name="desc_filter_button">Open filter options</string>
+    <string name="desc_student_card">Student record for %s</string>
+
+    <!-- Phase 5 — Lecturer Student Editor (§14.6) -->
+    <string name="editor_title_add">Add Student</string>
+    <string name="editor_title_edit">Edit Student</string>
+    <string name="editor_subtitle_add">Enter the details for the new student</string>
+    <string name="editor_subtitle_edit">Update the student\'s details below</string>
+    <string name="editor_section_details">Student Details</string>
+    <string name="editor_section_group">Lab Group Assignment</string>
+    <string name="editor_btn_save">Save Changes</string>
+    <string name="editor_btn_add">Add Student</string>
+    <string name="editor_btn_delete">Delete Student</string>
+    <string name="editor_success_saved">Student record saved successfully.</string>
+    <string name="editor_success_added">Student added successfully.</string>
+    <string name="editor_error_save">Could not save changes. Please try again.</string>
+    <string name="editor_label_group">Lab Group</string>
+    <string name="editor_hint_group">Select lab group</string>
+    <string name="hint_name">Enter full name</string>
+
+    <!-- Phase 5 — Group Assignment Screen (§14.7) -->
+    <string name="group_assign_title">Assign Lab Group</string>
+    <string name="group_assign_current_label">Current Assignment:</string>
+    <string name="group_assign_select_label">Select a group:</string>
+    <string name="group_assign_unassigned">Unassigned</string>
+    <string name="group_assign_full_tag">FULL</string>
+    <string name="group_assign_btn_confirm">Confirm Assignment</string>
+    <string name="group_assign_warning">Note: The server is the final authority on group capacity.</string>
+    <string name="desc_group_row">%s — %d of %d students</string>
+    <string name="desc_group_full_row">%s — Full (%d of %d students)</string>
+
+    <!-- Phase 5 — Delete Confirmation (§14.8) -->
+    <string name="delete_title">Delete Student?</string>
+    <string name="delete_message">This will deactivate the student account and remove the student from the active roster.</string>
+    <string name="delete_btn_confirm">Delete</string>
+    <string name="delete_btn_cancel">Cancel</string>
+    <string name="delete_student_name_label">Student: %s</string>
+
+    <!-- Phase 5 — Filter labels -->
+    <string name="filter_title">Filter Students</string>
+    <string name="filter_btn_apply">Apply Filters</string>
+    <string name="filter_btn_reset">Reset</string>
+    <string name="filter_programme_all">All Programmes</string>
+    <string name="filter_group_all">All Groups</string>
 </resources>

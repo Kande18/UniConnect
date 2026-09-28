@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--
+    activity_lecturer_dashboard.xml  (§14.2)
+    =========================================
+    Lecturer Dashboard — summary overview screen.
+    Shows:
+      • Greeting header with lecturer name + sync status chip
+      • Group Summary section: 5 stat cards (Total, G01–G04, Unassigned)
+      • Quick Actions section: View Roster button + Add Student button
+    Architecture note: All stat card TextViews and the sync chip are assigned IDs so
+    the Backend/ViewModel team can bind live data without touching the layout structure.
+-->
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,31 +19,314 @@
     android:background="@color/welcome_bg"
     tools:context=".LecturerDashboardActivity">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbarDashboard"
-        android:layout_width="0dp"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/primary_dark"
-        app:navigationIcon="@drawable/ic_arrow_back"
-        app:navigationIconTint="@color/white"
-        app:title="Lecturer Dashboard"
-        app:titleTextColor="@color/white"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/tvDashboardPlaceholder"
-        android:layout_width="wrap_content"
+    <!-- ══════════════════════════════════════════
+         APP BAR — Primary dark toolbar + sign-out
+         ══════════════════════════════════════════ -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarDashboard"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Welcome to Lecturer Dashboard\n(Phase 4 Destination)"
-        android:textColor="@color/title_dark_slate"
-        android:textSize="@dimen/text_size_large"
-        android:textStyle="bold"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/toolbarDashboard"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:background="@color/primary_dark"
+        app:elevation="4dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbarDashboard"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/primary_dark"
+            app:title="@string/dashboard_title"
+            app:titleTextColor="@color/white"
+            app:menu="@menu/menu_lecturer_dashboard" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- ══════════════════════════════════════════
+         SCROLLABLE CONTENT
+         ══════════════════════════════════════════ -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:fillViewport="true"
+        android:padding="16dp"
+        android:clipToPadding="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- ────────────────────────────────
+                 GREETING HEADER CARD
+                 ──────────────────────────────── -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardGreeting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@color/primary_dark">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <!-- Sync status chip -->
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipSyncStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:text="@string/dashboard_sync_status"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        app:chipBackgroundColor="#330A7075"
+                        app:chipStrokeColor="@color/action_teal"
+                        app:chipStrokeWidth="1dp"
+                        android:contentDescription="@string/a11y_status_prefix"
+                        tools:ignore="SmallSp" />
+
+                    <!-- Welcome text -->
+                    <TextView
+                        android:id="@+id/tvDashboardWelcome"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dashboard_welcome"
+                        android:textColor="@color/white"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        android:importantForAccessibility="yes" />
+
+                    <TextView
+                        android:id="@+id/tvDashboardSubtitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/dashboard_subtitle"
+                        android:textColor="#B0C4D8"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ────────────────────────────────
+                 SECTION HEADER — Group Summary
+                 ──────────────────────────────── -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:text="@string/dashboard_section_groups"
+                android:textColor="@color/label_slate"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.08" />
+
+            <!-- ────────────────────────────────
+                 TOTAL STUDENTS + UNASSIGNED ROW
+                 ──────────────────────────────── -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <!-- Total Students card -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardTotalStudents"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="5dp"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="@color/white"
+                    android:contentDescription="@string/dashboard_total_students">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:id="@+id/tvTotalCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="46"
+                            android:textColor="@color/primary_dark"
+                            android:textSize="28sp"
+                            android:textStyle="bold"
+                            tools:text="46" />
+                        <!-- TODO: Replace mock data with ViewModel state -->
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="@string/dashboard_total_students"
+                            android:textColor="@color/tagline_charcoal"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Unassigned card -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardUnassigned"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="5dp"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="#FFF8F0"
+                    android:contentDescription="@string/dashboard_unassigned">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:id="@+id/tvUnassignedCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="3"
+                            android:textColor="@color/status_warning"
+                            android:textSize="28sp"
+                            android:textStyle="bold"
+                            tools:text="3" />
+                        <!-- TODO: Replace mock data with ViewModel state -->
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="@string/dashboard_unassigned"
+                            android:textColor="@color/tagline_charcoal"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+            <!-- ────────────────────────────────
+                 GROUP CARDS — G01 & G02 ROW
+                 ──────────────────────────────── -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <!-- G01 card -->
+                <include
+                    android:id="@+id/cardG01"
+                    layout="@layout/layout_group_stat_card"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="5dp" />
+
+                <!-- G02 card -->
+                <include
+                    android:id="@+id/cardG02"
+                    layout="@layout/layout_group_stat_card"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="5dp" />
+
+            </LinearLayout>
+
+            <!-- ────────────────────────────────
+                 GROUP CARDS — G03 & G04 ROW
+                 ──────────────────────────────── -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <!-- G03 card -->
+                <include
+                    android:id="@+id/cardG03"
+                    layout="@layout/layout_group_stat_card"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="5dp" />
+
+                <!-- G04 card -->
+                <include
+                    android:id="@+id/cardG04"
+                    layout="@layout/layout_group_stat_card"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="5dp" />
+
+            </LinearLayout>
+
+            <!-- ────────────────────────────────
+                 SECTION HEADER — Quick Actions
+                 ──────────────────────────────── -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:text="@string/dashboard_section_quick"
+                android:textColor="@color/label_slate"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.08" />
+
+            <!-- View Roster button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnViewRoster"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:minHeight="52dp"
+                android:text="@string/dashboard_btn_view_roster"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:backgroundTint="@color/action_teal"
+                app:cornerRadius="10dp"
+                app:icon="@drawable/ic_nav_group"
+                app:iconTint="@color/white"
+                android:contentDescription="@string/dashboard_btn_view_roster" />
+
+            <!-- Add Student button (outlined secondary) -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAddStudent"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:minHeight="52dp"
+                android:text="@string/dashboard_btn_add_student"
+                android:textColor="@color/action_teal"
+                android:textSize="16sp"
+                app:strokeColor="@color/action_teal"
+                app:strokeWidth="1.5dp"
+                app:cornerRadius="10dp"
+                android:contentDescription="@string/dashboard_btn_add_student" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
