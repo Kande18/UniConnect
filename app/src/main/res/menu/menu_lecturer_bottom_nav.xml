@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    menu_lecturer_bottom_nav.xml
+    Bottom navigation menu with 4 primary destinations for Lecturers:
+      1. Overview / Dashboard
+      2. Student Roster (Directory & Search)
+      3. Lab Groups (Capacities & Schedules)
+      4. Requests (Pending Student Transfers & Approvals)
+-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_lecturer_overview"
+        android:icon="@drawable/ic_nav_overview"
+        android:title="Overview" />
+
+    <item
+        android:id="@+id/nav_lecturer_roster"
+        android:icon="@drawable/ic_nav_roster"
+        android:title="Roster" />
+
+    <item
+        android:id="@+id/nav_lecturer_groups"
+        android:icon="@drawable/ic_nav_lab_groups"
+        android:title="Groups" />
+
+    <item
+        android:id="@+id/nav_lecturer_requests"
+        android:icon="@drawable/ic_nav_requests"
+        android:title="Requests" />
+
+</menu>

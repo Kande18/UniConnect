@@ -2,49 +2,30 @@ package com.uniconnect.app;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.widget.ProgressBar;
-import android.widget.TextView;
+import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 /**
- * LecturerDashboardActivity  (§14.2)
- * ====================================
- * Landing screen after a successful Lecturer Sign In.
- *
- * What this screen shows:
- *   - Greeting header with lecturer name and sync status chip
- *   - Group Summary section: Total, G01, G02, G03, G04, Unassigned counts
- *   - Quick Actions: View Roster button, Add Student button
- *   - Sign Out button in the toolbar
- *
- * Integration note for the Android Architecture team:
- *   Replace the populateGroupCards() call with a ViewModel observer.
- *   All TextViews and ProgressBars are accessible via the group card view IDs.
- *   The navigation targets (LecturerRosterActivity, etc.) are ready to receive
- *   search/filter parameters via Intent extras.
+ * LecturerDashboardActivity  (Lecturer Portal Hub Activity)
+ * ==========================================================
+ * Hosts a 4-button BottomNavigationView for rapid switching between:
+ *   1. Overview   (Analytics, Gauges, Quick Actions, Feed)
+ *   2. Roster     (Searchable Student Directory, Filter Chips, Add FAB)
+ *   3. Groups     (Lab Group Capacities, Schedules, Venues)
+ *   4. Requests   (Student Transfer Approvals & Rejections)
  */
 public class LecturerDashboardActivity extends AppCompatActivity {
 
-    // ─── Toolbar ───────────────────────────────────────────────────────────
-    private MaterialToolbar toolbarDashboard;
-
-    // ─── Quick Action Buttons ───────────────────────────────────────────────
-    private MaterialButton btnViewRoster;
-    private MaterialButton btnAddStudent;
-
-    // ─── Group Stat Card views (accessed via cardG0x.findViewById) ─────────
-    private MaterialCardView cardG01;
-    private MaterialCardView cardG02;
-    private MaterialCardView cardG03;
-    private MaterialCardView cardG04;
+    private MaterialToolbar toolbarLecturerPortal;
+    private BottomNavigationView bottomNavLecturer;
+    private View btnToolbarSignOut;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,121 +34,99 @@ public class LecturerDashboardActivity extends AppCompatActivity {
 
         initViews();
         setupToolbar();
-        populateGroupCards();   // TODO: Replace with ViewModel observer
-        setupButtons();
-    }
+        setupBottomNavigation();
+        setupSignOut();
 
-    // ─── Initialise view references ────────────────────────────────────────
-    private void initViews() {
-        toolbarDashboard = findViewById(R.id.toolbarDashboard);
-        btnViewRoster    = findViewById(R.id.btnViewRoster);
-        btnAddStudent    = findViewById(R.id.btnAddStudent);
-        cardG01          = findViewById(R.id.cardG01);
-        cardG02          = findViewById(R.id.cardG02);
-        cardG03          = findViewById(R.id.cardG03);
-        cardG04          = findViewById(R.id.cardG04);
-    }
-
-    // ─── Toolbar: title + sign-out menu ────────────────────────────────────
-    private void setupToolbar() {
-        setSupportActionBar(toolbarDashboard);
-        toolbarDashboard.setOnMenuItemClickListener(item -> {
-            if (item.getItemId() == R.id.action_sign_out) {
-                signOut();
-                return true;
-            }
-            return false;
-        });
-    }
-
-    /**
-     * Populates the four group stat cards with mock data.
-     * TODO: Replace mock data with ViewModel state once the
-     *       Backend/Android Architecture team connects their ViewModel.
-     *
-     * Mock data:
-     *   G01 → 14 / 15  (93%)
-     *   G02 → 10 / 15  (67%)
-     *   G03 →  9 / 15  (60%)
-     *   G04 → 13 / 15  (87%)
-     */
-    private void populateGroupCards() {
-        bindGroupCard(cardG01, "G01", 14, 15);
-        bindGroupCard(cardG02, "G02", 10, 15);
-        bindGroupCard(cardG03, "G03",  9, 15);
-        bindGroupCard(cardG04, "G04", 13, 15);
-    }
-
-    /**
-     * Binds label, count, capacity, and progress bar for one group stat card.
-     *
-     * @param card     The MaterialCardView containing the group stat layout.
-     * @param label    Group label string, e.g. "G01".
-     * @param count    Current number of enrolled students.
-     * @param capacity Maximum group capacity.
-     */
-    private void bindGroupCard(@NonNull MaterialCardView card,
-                               @NonNull String label,
-                               int count,
-                               int capacity) {
-        TextView tvLabel    = card.findViewById(R.id.tvGroupLabel);
-        TextView tvCount    = card.findViewById(R.id.tvGroupCount);
-        TextView tvCapacity = card.findViewById(R.id.tvGroupCapacity);
-        ProgressBar progress = card.findViewById(R.id.progressGroup);
-
-        if (tvLabel != null)    tvLabel.setText(label);
-        if (tvCount != null)    tvCount.setText(String.valueOf(count));
-        if (tvCapacity != null) tvCapacity.setText(getString(R.string.label_occupancy_of, capacity));
-        if (progress != null) {
-            int percent = capacity > 0 ? (count * 100) / capacity : 0;
-            progress.setProgress(percent);
-            // Visually highlight full groups in warning orange
-            if (count >= capacity) {
-                progress.setProgressTintList(
-                        android.content.res.ColorStateList.valueOf(
-                                getResources().getColor(R.color.status_warning, getTheme())
-                        )
-                );
+        if (savedInstanceState == null) {
+            int targetTab = getIntent().getIntExtra("TARGET_TAB", R.id.nav_lecturer_overview);
+            if (targetTab == R.id.nav_lecturer_overview) {
+                loadFragment(new LecturerOverviewFragment());
+                updateToolbarTitle("Lecturer Overview");
+                if (bottomNavLecturer != null) {
+                    bottomNavLecturer.setSelectedItemId(R.id.nav_lecturer_overview);
+                }
+            } else {
+                selectTab(targetTab);
             }
         }
-
-        // Accessibility: describe the card fully for TalkBack
-        card.setContentDescription(
-                getString(R.string.a11y_group_count, label, count)
-        );
     }
 
-    // ─── Button navigation ──────────────────────────────────────────────────
-    private void setupButtons() {
-        // View Roster → navigates to Lecturer Student Roster (Phase 5)
-        btnViewRoster.setOnClickListener(v -> navigateToRoster());
-
-        // Add Student → navigates to Student Editor in "add" mode (Phase 5)
-        btnAddStudent.setOnClickListener(v -> navigateToAddStudent());
+    private void initViews() {
+        toolbarLecturerPortal = findViewById(R.id.toolbarLecturerPortal);
+        bottomNavLecturer     = findViewById(R.id.bottomNavLecturer);
+        btnToolbarSignOut     = findViewById(R.id.btnToolbarSignOut);
     }
 
-    private void navigateToRoster() {
-        Intent intent = new Intent(this, LecturerRosterActivity.class);
-        startActivity(intent);
+    private void setupToolbar() {
+        if (toolbarLecturerPortal != null) {
+            setSupportActionBar(toolbarLecturerPortal);
+        }
     }
 
-    private void navigateToAddStudent() {
-        Intent intent = new Intent(this, LecturerStudentEditorActivity.class);
-        intent.putExtra(LecturerStudentEditorActivity.EXTRA_MODE,
-                        LecturerStudentEditorActivity.MODE_ADD);
-        startActivity(intent);
+    private void setupBottomNavigation() {
+        if (bottomNavLecturer != null) {
+            bottomNavLecturer.setOnItemSelectedListener(item -> switchTabFragment(item.getItemId()));
+        }
+    }
+
+    private boolean switchTabFragment(int itemId) {
+        if (itemId == R.id.nav_lecturer_overview) {
+            loadFragment(new LecturerOverviewFragment());
+            updateToolbarTitle("Lecturer Overview");
+            return true;
+        } else if (itemId == R.id.nav_lecturer_roster) {
+            loadFragment(new LecturerRosterFragment());
+            updateToolbarTitle("Student Roster");
+            return true;
+        } else if (itemId == R.id.nav_lecturer_groups) {
+            loadFragment(new LecturerGroupsFragment());
+            updateToolbarTitle("Lab Groups");
+            return true;
+        } else if (itemId == R.id.nav_lecturer_requests) {
+            loadFragment(new LecturerRequestsFragment());
+            updateToolbarTitle("Transfer Requests");
+            return true;
+        }
+        return false;
+    }
+
+    private void updateToolbarTitle(String title) {
+        if (toolbarLecturerPortal != null) {
+            toolbarLecturerPortal.setTitle(title);
+        }
+    }
+
+    private void setupSignOut() {
+        if (btnToolbarSignOut != null) {
+            btnToolbarSignOut.setOnClickListener(v -> {
+                Intent intent = new Intent(this, WelcomeActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        | Intent.FLAG_ACTIVITY_NEW_TASK
+                        | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            });
+        }
     }
 
     /**
-     * Sign out: clear the entire back stack and return to Welcome screen.
-     * This ensures no lecturer data remains on-screen for the next user.
+     * Programmatically switches the active tab in the BottomNavigationView.
+     * Can be invoked from child fragments or external shortcuts.
      */
-    private void signOut() {
-        Intent intent = new Intent(this, WelcomeActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-                | Intent.FLAG_ACTIVITY_NEW_TASK
-                | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-        finish();
+    public void selectTab(int menuItemId) {
+        if (bottomNavLecturer != null) {
+            if (bottomNavLecturer.getSelectedItemId() == menuItemId) {
+                switchTabFragment(menuItemId);
+            } else {
+                bottomNavLecturer.setSelectedItemId(menuItemId);
+            }
+        }
+    }
+
+    private void loadFragment(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        transaction.replace(R.id.fragmentContainerLecturer, fragment);
+        transaction.commit();
     }
 }

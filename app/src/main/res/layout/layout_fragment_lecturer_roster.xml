@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    layout_fragment_lecturer_roster.xml
+    ====================================
+    Lecturer Tab 2: Student Directory & Search Roster
+    Features:
+      - Search bar with clear button
+      - Filter bar with quick chips and Filter dialog launcher
+      - Real-time student list with RecyclerView
+      - State views (Loading, Empty, Error)
+      - Extended FAB to add a new student
+-->
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/welcome_bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- ── SEARCH BAR ──────────────────────────────────────────────── -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilFragSearch"
+            style="@style/Widget.App.TextInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="4dp"
+            app:startIconDrawable="@drawable/ic_search"
+            app:startIconTint="@color/tagline_charcoal"
+            app:endIconMode="clear_text"
+            android:hint="@string/hint_search_students">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etFragSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:imeOptions="actionSearch"
+                android:textColor="@color/title_dark_slate"
+                android:textColorHint="@color/tagline_charcoal"
+                android:maxLines="1" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- ── FILTER ROW ──────────────────────────────────────────────── -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="6dp"
+            android:clipToPadding="false">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnFragOpenFilter"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/btn_filter"
+                    android:textColor="@color/action_teal"
+                    android:textSize="13sp"
+                    app:strokeColor="@color/action_teal"
+                    app:strokeWidth="1dp"
+                    app:cornerRadius="18dp"
+                    app:icon="@drawable/ic_filter"
+                    app:iconTint="@color/action_teal"
+                    app:iconSize="16dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipFilterAll"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:layout_marginEnd="6dp"
+                    android:text="All (46)"
+                    android:checked="true"
+                    android:textColor="@color/white"
+                    app:chipBackgroundColor="@color/action_teal"
+                    app:chipStrokeWidth="0dp"
+                    app:chipMinHeight="32dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipFilterUnassigned"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:layout_marginEnd="6dp"
+                    android:text="Unassigned (3)"
+                    android:textColor="@color/title_dark_slate"
+                    app:chipBackgroundColor="@color/white"
+                    app:chipStrokeColor="@color/status_warning"
+                    app:chipStrokeWidth="1dp"
+                    app:chipMinHeight="32dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipFilterCS"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:layout_marginEnd="6dp"
+                    android:text="CS"
+                    android:textColor="@color/title_dark_slate"
+                    app:chipBackgroundColor="@color/white"
+                    app:chipStrokeColor="@color/secondary_blue"
+                    app:chipStrokeWidth="1dp"
+                    app:chipMinHeight="32dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipFilterIT"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:text="IT"
+                    android:textColor="@color/title_dark_slate"
+                    app:chipBackgroundColor="@color/white"
+                    app:chipStrokeColor="@color/secondary_blue"
+                    app:chipStrokeWidth="1dp"
+                    app:chipMinHeight="32dp" />
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+        <!-- ── STATE: LOADING ───────────────────────────────────────────── -->
+        <LinearLayout
+            android:id="@+id/fragViewLoading"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <ProgressBar
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/action_teal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/roster_loading"
+                android:textColor="@color/tagline_charcoal"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <!-- ── STATE: EMPTY ─────────────────────────────────────────────── -->
+        <LinearLayout
+            android:id="@+id/fragViewEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="32dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tvFragEmptyMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/roster_empty"
+                android:textColor="@color/tagline_charcoal"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:gravity="center" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Try adjusting your search query or filters."
+                android:textColor="@color/tagline_charcoal"
+                android:textSize="14sp"
+                android:gravity="center" />
+
+        </LinearLayout>
+
+        <!-- ── STATE: STUDENT LIST ──────────────────────────────────────── -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/fragRecyclerStudents"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingHorizontal="12dp"
+            android:paddingBottom="88dp"
+            android:clipToPadding="false"
+            android:scrollbars="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_student_card" />
+
+    </LinearLayout>
+
+    <!-- ══ FAB — Add Student ═════════════════════════════════════════════════ -->
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fragFabAddStudent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:text="Add Student"
+        android:textColor="@color/white"
+        app:backgroundTint="@color/action_teal"
+        app:icon="@drawable/ic_person_add"
+        app:iconTint="@color/white" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
