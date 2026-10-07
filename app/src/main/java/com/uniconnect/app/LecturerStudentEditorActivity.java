@@ -219,7 +219,7 @@ public class LecturerStudentEditorActivity extends AppCompatActivity {
      * TODO: Replace with ViewModel.getStudent(studentId).observe(...)
      */
     private void prefillMockData() {
-        etEditorName.setText("Peculiar Banda");
+        etEditorName.setText("George Kunda");
         etEditorStudentNumber.setText("202400123");
         actvEditorProgramme.setText("CS (Computer Science)", false);
         if (tvCurrentGroup != null) tvCurrentGroup.setText("G01");
