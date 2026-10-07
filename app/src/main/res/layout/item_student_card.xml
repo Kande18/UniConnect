@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    item_student_card.xml  (§14.3 — Reusable student list item)
+    =============================================================
+    A single student row in the Roster RecyclerView.
+
+    Displays:
+      • Student name (large, bold)
+      • Student number (mono-ish, smaller)
+      • Programme badge chip
+      • Lab group badge chip (teal if assigned, warning if unassigned)
+
+    IDs for ViewModel / Adapter binding:
+      tvStudentName    — student full name
+      tvStudentNumber  — student number
+      chipProgramme    — programme label (CS / IT / DS)
+      chipGroup        — lab group label (G01–G04 or Unassigned)
+-->
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardStudentItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="2dp"
+    app:cardBackgroundColor="@color/white"
+    tools:ignore="UnusedAttribute">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="14dp"
+        android:gravity="center_vertical">
+
+        <!-- Avatar initials circle -->
+        <TextView
+            android:id="@+id/tvAvatar"
+            android:importantForAccessibility="no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="44dp"
+            android:minHeight="44dp"
+            android:layout_marginEnd="14dp"
+            android:background="@drawable/bg_avatar_circle"
+            android:gravity="center"
+            android:text="P"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="P" />
+
+        <!-- Name + Number column -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvStudentName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/title_dark_slate"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:ellipsize="end"
+                android:maxLines="2"
+                tools:text="Peculiar Banda" />
+
+            <TextView
+                android:id="@+id/tvStudentNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:textColor="@color/tagline_charcoal"
+                android:textSize="13sp"
+                tools:text="202400123" />
+
+            <!-- Badge row -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="6dp">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipProgramme"
+                    style="@style/Widget.MaterialComponents.Chip.Entry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="6dp"
+                                        android:textColor="@color/primary_dark"
+                    android:textSize="12sp"
+                    android:clickable="false"
+                    android:focusable="false"
+                    app:chipBackgroundColor="#E8F4F8"
+                    app:chipStrokeColor="@color/action_teal"
+                    app:chipStrokeWidth="1dp"
+                    app:chipMinHeight="28dp"
+                    app:closeIconVisible="false"
+                    app:ensureMinTouchTargetSize="false"
+                    tools:text="CS"
+                    tools:ignore="SmallSp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipGroup"
+                    style="@style/Widget.MaterialComponents.Chip.Entry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                                        android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:clickable="false"
+                    android:focusable="false"
+                    app:chipBackgroundColor="@color/action_teal"
+                    app:chipStrokeWidth="0dp"
+                    app:chipMinHeight="28dp"
+                    app:closeIconVisible="false"
+                    app:ensureMinTouchTargetSize="false"
+                    tools:text="G01"
+                    tools:ignore="SmallSp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Edit chevron -->
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_arrow_back"
+            android:rotation="180"
+            android:alpha="0.4"
+            android:contentDescription="@string/desc_edit_student"
+            android:scaleType="fitCenter" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

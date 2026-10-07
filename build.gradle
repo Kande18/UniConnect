@@ -1,0 +1,23 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        // Android Gradle Plugin – version compatible with current Android Studio
+        classpath 'com.android.tools.build:gradle:8.13.2'
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+// Optionally set Gradle wrapper version for the project
+wrapper {
+    gradleVersion = '8.14.5'
+    distributionType = Wrapper.DistributionType.ALL
+}

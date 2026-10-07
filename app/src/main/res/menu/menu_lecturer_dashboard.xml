@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    menu_lecturer_dashboard.xml
+    Toolbar overflow menu for the Lecturer Dashboard.
+    Contains the Sign Out action.
+-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_sign_out"
+        android:title="@string/dashboard_sign_out"
+        android:icon="@drawable/ic_logout"
+        android:contentDescription="@string/desc_sign_out"
+        app:showAsAction="ifRoom" />
+
+</menu>

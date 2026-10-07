@@ -1,0 +1,349 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="340dp"
+    android:height="200dp"
+    android:viewportWidth="340"
+    android:viewportHeight="200">
+
+    <!-- Campus Ground Base Line -->
+    <path
+        android:strokeColor="#6f839cff"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:pathData="M15,168 L325,168" />
+    <path
+        android:strokeColor="#6d92c2ff"
+        android:strokeWidth="1"
+        android:strokeLineCap="round"
+        android:pathData="M30,174 L310,174" />
+
+    <!-- BACKGROUND: University Main Building (Neoclassical Academic Hall) -->
+    <!-- Central Pediment / Triangular Gable -->
+    <path
+        android:strokeColor="#64748B"
+        android:strokeWidth="1.8"
+        android:strokeLineJoin="round"
+        android:fillColor="#081E293B"
+        android:pathData="M110,65 L170,35 L230,65 Z" />
+
+    <!-- Pediment Clock / Medallion -->
+    <path
+        android:strokeColor="#64748B"
+        android:strokeWidth="1.5"
+        android:pathData="M170,52m-7,0a7,7 0,1 1,14 0a7,7 0,1 1,-14 0" />
+    <path
+        android:strokeColor="#0284C7"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:pathData="M170,52 L170,48 M170,52 L173,52" />
+
+    <!-- Dome / Cupola Roof on top of center -->
+    <path
+        android:strokeColor="#94A3B8"
+        android:strokeWidth="1.5"
+        android:strokeLineJoin="round"
+        android:pathData="M160,35 L160,25 C160,18 180,18 180,25 L180,35" />
+    <path
+        android:strokeColor="#0284C7"
+        android:strokeWidth="1.5"
+        android:pathData="M170,18 L170,10" />
+
+    <!-- Main Entablature / Architrave below pediment -->
+    <path
+        android:strokeColor="#64748B"
+        android:strokeWidth="1.5"
+        android:pathData="M106,65 L234,65 L234,72 L106,72 Z" />
+
+    <!-- 4 Grand Columns -->
+    <!-- Column 1 -->
+    <path
+        android:strokeColor="#64748B"
+        android:strokeWidth="1.5"
+        android:pathData="M116,72 L116,135 M124,72 L124,135" />
+    <path
+        android:strokeColor="#94A3B8"
+        android:strokeWidth="1.2"
+        android:pathData="M113,72 L127,72 M113,135 L127,135" />
+
+    <!-- Column 2 -->
+    <path
+        android:strokeColor="#64748B"
+        android:strokeWidth="1.5"
+        android:pathData="M148,72 L148,135 M156,72 L156,135" />
+    <path
+        android:strokeColor="#94A3B8"
+        android:strokeWidth="1.2"
+        android:pathData="M145,72 L159,72 M145,135 L159,135" />
+
+    <!-- Column 3 -->
+    <path
+        android:strokeColor="#64748B"
+        android:strokeWidth="1.5"
+        android:pathData="M184,72 L184,135 M192,72 L192,135" />
+    <path
+        android:strokeColor="#94A3B8"
+        android:strokeWidth="1.2"
+        android:pathData="M181,72 L195,72 M181,135 L195,135" />
+
+    <!-- Column 4 -->
+    <path
+        android:strokeColor="#64748B"
+        android:strokeWidth="1.5"
+        android:pathData="M216,72 L216,135 M224,72 L224,135" />
+    <path
+        android:strokeColor="#94A3B8"
+        android:strokeWidth="1.2"
+        android:pathData="M213,72 L227,72 M213,135 L227,135" />
+
+    <!-- Main Grand Entrance Portal behind columns -->
+    <path
+        android:strokeColor="#94A3B8"
+        android:strokeWidth="1.4"
+        android:pathData="M162,135 L162,105 C162,98 178,98 178,105 L178,135" />
+    <!-- Entrance door seam -->
+    <path
+        android:strokeColor="#CBD5E1"
+        android:strokeWidth="1"
+        android:pathData="M170,102 L170,135" />
+
+    <!-- Left Wing Building -->
+    <path
+        android:strokeColor="#94A3B8"
+        android:strokeWidth="1.5"
+        android:pathData="M50,72 L106,72 L106,140 L50,140 Z" />
+    <path
+        android:strokeColor="#CBD5E1"
+        android:strokeWidth="1.2"
+        android:pathData="M48,68 L108,68" />
+    <!-- Left Wing Windows -->
+    <path
+        android:strokeColor="#64748B"
+        android:strokeWidth="1.2"
+        android:pathData="M60,82 L60,98 M72,82 L72,98 M60,82 C60,78 72,78 72,82 M60,98 L72,98" />
+    <path
+        android:strokeColor="#64748B"
+        android:strokeWidth="1.2"
+        android:pathData="M84,82 L84,98 M96,82 L96,98 M84,82 C84,78 96,78 96,82 M84,98 L96,98" />
+    <path
+        android:strokeColor="#64748B"
+        android:strokeWidth="1.2"
+        android:pathData="M60,112 L72,112 L72,128 L60,128 Z" />
+    <path
+        android:strokeColor="#64748B"
+        android:strokeWidth="1.2"
+        android:pathData="M84,112 L96,112 L96,128 L84,128 Z" />
+
+    <!-- Right Wing Building -->
+    <path
+        android:strokeColor="#94A3B8"
+        android:strokeWidth="1.5"
+        android:pathData="M234,72 L290,72 L290,140 L234,140 Z" />
+    <path
+        android:strokeColor="#CBD5E1"
+        android:strokeWidth="1.2"
+        android:pathData="M232,68 L292,68" />
+    <!-- Right Wing Windows -->
+    <path
+        android:strokeColor="#64748B"
+        android:strokeWidth="1.2"
+        android:pathData="M244,82 L244,98 M256,82 L256,98 M244,82 C244,78 256,78 256,82 M244,98 L256,98" />
+    <path
+        android:strokeColor="#64748B"
+        android:strokeWidth="1.2"
+        android:pathData="M268,82 L268,98 M280,82 L280,98 M268,82 C268,78 280,78 280,82 M268,98 L280,98" />
+    <path
+        android:strokeColor="#64748B"
+        android:strokeWidth="1.2"
+        android:pathData="M244,112 L256,112 L256,128 L244,128 Z" />
+    <path
+        android:strokeColor="#64748B"
+        android:strokeWidth="1.2"
+        android:pathData="M268,112 L280,112 L280,128 L268,128 Z" />
+
+    <!-- Grand Entrance Steps -->
+    <path
+        android:strokeColor="#94A3B8"
+        android:strokeWidth="1.2"
+        android:pathData="M102,140 L238,140" />
+    <path
+        android:strokeColor="#94A3B8"
+        android:strokeWidth="1.2"
+        android:pathData="M98,145 L242,145" />
+    <path
+        android:strokeColor="#64748B"
+        android:strokeWidth="1.2"
+        android:pathData="M94,150 L246,150" />
+    <path
+        android:strokeColor="#64748B"
+        android:strokeWidth="1.2"
+        android:pathData="M90,155 L250,155" />
+
+    <!-- Campus Trees (Stylized Line Art) -->
+    <!-- Left Tree -->
+    <path
+        android:strokeColor="#0D9488"
+        android:strokeWidth="1.3"
+        android:pathData="M32,168 L32,130" />
+    <path
+        android:strokeColor="#0D9488"
+        android:strokeWidth="1.3"
+        android:strokeLineJoin="round"
+        android:pathData="M32,130 C20,130 18,105 32,95 C36,88 48,88 52,98 C60,105 56,130 32,130 Z" />
+
+    <!-- Right Tree -->
+    <path
+        android:strokeColor="#0D9488"
+        android:strokeWidth="1.3"
+        android:pathData="M308,168 L308,125" />
+    <path
+        android:strokeColor="#0D9488"
+        android:strokeWidth="1.3"
+        android:strokeLineJoin="round"
+        android:pathData="M308,125 C296,125 294,102 308,92 C312,85 324,85 328,95 C336,102 332,125 308,125 Z" />
+
+    <!-- Campus Lamp Post -->
+    <path
+        android:strokeColor="#64748B"
+        android:strokeWidth="1.2"
+        android:pathData="M78,168 L78,138 M75,138 L81,138 M76,138 L75,132 L81,132 L80,138" />
+
+    <!-- FOREGROUND: STUDENTS WALKING & COLLABORATING (Blue & Slate Gray Lines) -->
+
+    <!-- STUDENT 1: Left - Walking with backpack & notebook (Blue #1D70B8) -->
+    <!-- Head -->
+    <path
+        android:strokeColor="#1D70B8"
+        android:strokeWidth="1.8"
+        android:fillColor="#E0F2FE"
+        android:pathData="M65,132m-4,0a4,4 0,1 1,8 0a4,4 0,1 1,-8 0" />
+    <!-- Torso / Jacket -->
+    <path
+        android:strokeColor="#1D70B8"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M65,136 L65,152" />
+    <!-- Backpack -->
+    <path
+        android:strokeColor="#0284C7"
+        android:strokeWidth="1.5"
+        android:pathData="M59,139 C57,139 57,149 61,151" />
+    <!-- Arm carrying book/folder -->
+    <path
+        android:strokeColor="#1D70B8"
+        android:strokeWidth="1.6"
+        android:strokeLineCap="round"
+        android:pathData="M65,140 L70,147 L67,148" />
+    <!-- Notebook -->
+    <path
+        android:strokeColor="#0D9488"
+        android:strokeWidth="1.4"
+        android:fillColor="#CCFBF1"
+        android:pathData="M68,145 L73,144 L75,150 L70,151 Z" />
+    <!-- Legs in stride -->
+    <path
+        android:strokeColor="#334155"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:pathData="M65,152 L61,168 M65,152 L70,167" />
+
+    <!-- STUDENT 2: Center-Left - Student in discussion (Slate Gray #334155) -->
+    <!-- Head -->
+    <path
+        android:strokeColor="#334155"
+        android:strokeWidth="1.8"
+        android:fillColor="#F1F5F9"
+        android:pathData="M135,130m-4,0a4,4 0,1 1,8 0a4,4 0,1 1,-8 0" />
+    <!-- Torso -->
+    <path
+        android:strokeColor="#334155"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:pathData="M135,134 L135,150" />
+    <!-- Gesturing Arm -->
+    <path
+        android:strokeColor="#334155"
+        android:strokeWidth="1.6"
+        android:strokeLineCap="round"
+        android:pathData="M135,138 L142,142 L146,139" />
+    <!-- Left arm -->
+    <path
+        android:strokeColor="#334155"
+        android:strokeWidth="1.6"
+        android:strokeLineCap="round"
+        android:pathData="M135,138 L130,146" />
+    <!-- Legs -->
+    <path
+        android:strokeColor="#1E293B"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:pathData="M135,150 L132,168 M135,150 L138,168" />
+
+    <!-- STUDENT 3: Center-Right - Student partner holding tablet (Cyan/Teal #0D9488) -->
+    <!-- Head -->
+    <path
+        android:strokeColor="#0D9488"
+        android:strokeWidth="1.8"
+        android:fillColor="#CCFBF1"
+        android:pathData="M154,131m-4,0a4,4 0,1 1,8 0a4,4 0,1 1,-8 0" />
+    <!-- Torso -->
+    <path
+        android:strokeColor="#0D9488"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:pathData="M154,135 L154,150" />
+    <!-- Arms holding digital tablet -->
+    <path
+        android:strokeColor="#0D9488"
+        android:strokeWidth="1.6"
+        android:strokeLineCap="round"
+        android:pathData="M154,139 L148,144 M154,139 L150,145" />
+    <!-- Tablet -->
+    <path
+        android:strokeColor="#0284C7"
+        android:strokeWidth="1.4"
+        android:fillColor="#E0F2FE"
+        android:pathData="M146,143 L151,141 L153,147 L148,149 Z" />
+    <!-- Messenger bag strap -->
+    <path
+        android:strokeColor="#94A3B8"
+        android:strokeWidth="1.2"
+        android:pathData="M151,136 L158,148" />
+    <!-- Legs -->
+    <path
+        android:strokeColor="#334155"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:pathData="M154,150 L151,168 M154,150 L158,167" />
+
+    <!-- STUDENT 4: Right - Walking towards campus steps (Blue #0284C7) -->
+    <!-- Head -->
+    <path
+        android:strokeColor="#0284C7"
+        android:strokeWidth="1.8"
+        android:fillColor="#E0F2FE"
+        android:pathData="M230,133m-4,0a4,4 0,1 1,8 0a4,4 0,1 1,-8 0" />
+    <!-- Torso -->
+    <path
+        android:strokeColor="#0284C7"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:pathData="M230,137 L230,152" />
+    <!-- Backpack -->
+    <path
+        android:strokeColor="#1D70B8"
+        android:strokeWidth="1.5"
+        android:pathData="M224,140 C222,140 222,148 226,150" />
+    <!-- Arms -->
+    <path
+        android:strokeColor="#0284C7"
+        android:strokeWidth="1.6"
+        android:strokeLineCap="round"
+        android:pathData="M230,140 L234,147 M230,140 L227,146" />
+    <!-- Legs in walking motion -->
+    <path
+        android:strokeColor="#334155"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:pathData="M230,152 L225,168 M230,152 L236,167" />
+
+</vector>

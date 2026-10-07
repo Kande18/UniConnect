@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    layout_group_stat_card.xml  (§14.2 — Reusable component §23)
+    ==============================================================
+    Reusable group statistics card — shows group label (G01–G04),
+    student count, capacity (max), and a mini progress bar.
+    Used 4× on the Lecturer Dashboard via <include>.
+
+    IDs exposed for ViewModel binding:
+      tvGroupLabel    — e.g. "G01"
+      tvGroupCount    — e.g. "12" (enrolled count)
+      tvGroupCapacity — e.g. "/ 15"
+      progressGroup   — filled proportion (0–100)
+-->
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="2dp"
+    app:cardBackgroundColor="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="14dp">
+
+        <!-- Group label badge -->
+        <TextView
+            android:id="@+id/tvGroupLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:text="G01"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:background="@drawable/bg_group_badge"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="3dp"
+            tools:text="G01" />
+
+        <!-- Count row: number / capacity -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="6dp">
+
+            <TextView
+                android:id="@+id/tvGroupCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12"
+                android:textColor="@color/primary_dark"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                tools:text="12" />
+            <!-- TODO: Replace mock data with ViewModel state -->
+
+            <TextView
+                android:id="@+id/tvGroupCapacity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="/ 15"
+                android:textColor="@color/tagline_charcoal"
+                android:textSize="13sp"
+                tools:text="/ 15" />
+            <!-- TODO: Replace mock data with ViewModel state -->
+
+        </LinearLayout>
+
+        <!-- Occupancy progress bar -->
+        <ProgressBar
+            android:id="@+id/progressGroup"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:progress="80"
+            android:max="100"
+            android:progressTint="@color/action_teal"
+            android:progressBackgroundTint="#E0E0E0"
+            tools:progress="80" />
+        <!-- TODO: Replace mock data with ViewModel state -->
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

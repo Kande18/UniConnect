@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutWelcomeRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/welcome_bg"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    tools:context=".WelcomeActivity">
+
+    <!-- 1. BACKGROUND ACCENTS (Subtle organic gradient shapes in corners) -->
+    <!-- Top-Left Organic Accent Shape in light teal -->
+    <View
+        android:id="@+id/viewAccentTopLeft"
+        android:layout_width="260dp"
+        android:layout_height="260dp"
+        android:layout_marginStart="-80dp"
+        android:layout_marginTop="-80dp"
+        android:background="@drawable/bg_accent_circle_teal"
+        android:importantForAccessibility="no"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Top-Right Organic Accent Shape in light cyan -->
+    <View
+        android:id="@+id/viewAccentTopRight"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginEnd="-90dp"
+        android:layout_marginTop="-90dp"
+        android:background="@drawable/bg_accent_circle_cyan"
+        android:importantForAccessibility="no"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- 2. HEADER & BRANDING SECTION (Centered at Top) -->
+    <!-- App Logo: Stylized circular emblem with overlapping nodes/people -->
+    <ImageView
+        android:id="@+id/ivAppLogo"
+        android:layout_width="@dimen/welcome_logo_size"
+        android:layout_height="@dimen/welcome_logo_size"
+        android:layout_marginTop="36dp"
+        android:contentDescription="@string/desc_app_logo"
+        android:src="@drawable/ic_app_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- App Title: Bold, uppercase, dark slate blue (#1E293B), 22sp -->
+    <TextView
+        android:id="@+id/tvAppTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:letterSpacing="0.05"
+        android:text="@string/welcome_app_title"
+        android:textColor="@color/title_dark_slate"
+        android:textSize="@dimen/welcome_title_size"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivAppLogo" />
+
+    <!-- Tagline: Regular weight, charcoal gray (#475569), 14sp, centered -->
+    <TextView
+        android:id="@+id/tvAppTagline"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="32dp"
+        android:gravity="center"
+        android:lineSpacingExtra="3dp"
+        android:text="@string/welcome_tagline"
+        android:textColor="@color/tagline_charcoal"
+        android:textSize="@dimen/welcome_tagline_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvAppTitle" />
+
+    <!-- 3. HERO ILLUSTRATION (University campus line art with walking students) -->
+    <ImageView
+        android:id="@+id/ivHeroIllustration"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="12dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/desc_hero_illustration"
+        android:scaleType="fitCenter"
+        android:src="@drawable/hero_university_illustration"
+        app:layout_constraintBottom_toTopOf="@id/tvPortalSelectionLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_max="240dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvAppTagline"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <!-- 4. INTERACTIVE PORTAL SELECTION SECTION (Bottom Area) -->
+    <!-- Section Label: Medium weight, slate color (#334155), 14sp -->
+    <TextView
+        android:id="@+id/tvPortalSelectionLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:text="@string/portal_selection_label"
+        android:textColor="@color/label_slate"
+        android:textSize="@dimen/welcome_tagline_size"
+        app:layout_constraintBottom_toTopOf="@id/btnStudentPortal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Primary Button: Student Portal (Solid royal blue, rounded 16dp, 4dp elevation) -->
+    <LinearLayout
+        android:id="@+id/btnStudentPortal"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/portal_button_height"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/bg_btn_student_portal"
+        android:clickable="true"
+        android:contentDescription="@string/desc_student_portal"
+        android:elevation="@dimen/portal_button_elevation"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:translationZ="@dimen/portal_button_elevation"
+        app:layout_constraintBottom_toTopOf="@id/btnLecturerPortal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <!-- Left Icon: Graduation cap symbol in white (#FFFFFF) -->
+        <ImageView
+            android:id="@+id/ivStudentCapIcon"
+            android:layout_width="@dimen/portal_icon_size"
+            android:layout_height="@dimen/portal_icon_size"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_graduation_cap"
+            app:tint="@color/white" />
+
+        <!-- Button Text: "Student Portal" in white, bold -->
+        <TextView
+            android:id="@+id/tvStudentPortalText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:text="@string/student_portal_title"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_medium"
+            android:textStyle="bold" />
+
+        <!-- Right Icon: Chevron right arrow (>) in white -->
+        <ImageView
+            android:id="@+id/ivStudentChevron"
+            android:layout_width="@dimen/portal_chevron_size"
+            android:layout_height="@dimen/portal_chevron_size"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_chevron_right"
+            app:tint="@color/white" />
+    </LinearLayout>
+
+    <!-- Secondary Button: Lecturer Portal (White bg with subtle teal border, rounded 16dp, 4dp elevation) -->
+    <LinearLayout
+        android:id="@+id/btnLecturerPortal"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/portal_button_height"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="28dp"
+        android:background="@drawable/bg_btn_lecturer_portal"
+        android:clickable="true"
+        android:contentDescription="@string/desc_lecturer_portal"
+        android:elevation="@dimen/portal_button_elevation"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:translationZ="@dimen/portal_button_elevation"
+        app:layout_constraintBottom_toTopOf="@id/llRegisterPrompt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <!-- Left Icon: Graduation cap / lecturer symbol in dark teal (#0D9488) -->
+        <ImageView
+            android:id="@+id/ivLecturerBadgeIcon"
+            android:layout_width="@dimen/portal_icon_size"
+            android:layout_height="@dimen/portal_icon_size"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_lecturer_symbol"
+            app:tint="@color/lecturer_portal_teal" />
+
+        <!-- Button Text: "Lecturer Portal" in dark teal (#0D9488), bold -->
+        <TextView
+            android:id="@+id/tvLecturerPortalText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:text="@string/lecturer_portal_title"
+            android:textColor="@color/lecturer_portal_teal"
+            android:textSize="@dimen/text_size_medium"
+            android:textStyle="bold" />
+
+        <!-- Right Icon: Chevron right arrow (>) in dark teal (#0D9488) -->
+        <ImageView
+            android:id="@+id/ivLecturerChevron"
+            android:layout_width="@dimen/portal_chevron_size"
+            android:layout_height="@dimen/portal_chevron_size"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_chevron_right"
+            app:tint="@color/lecturer_portal_teal" />
+    </LinearLayout>
+
+    <!-- 5. DIRECT STUDENT REGISTRATION PATHWAY (§13.1) -->
+    <LinearLayout
+        android:id="@+id/llRegisterPrompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/tvNewStudentLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/msg_new_student"
+            android:textColor="@color/tagline_charcoal"
+            android:textSize="@dimen/text_size_normal" />
+
+        <TextView
+            android:id="@+id/btnRegisterDirect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:minHeight="@dimen/min_touch_target"
+            android:gravity="center_vertical"
+            android:clickable="true"
+            android:focusable="true"
+            android:contentDescription="@string/desc_register_direct"
+            android:text="@string/action_register_now"
+            android:textColor="@color/action_teal"
+            android:textSize="@dimen/text_size_normal"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

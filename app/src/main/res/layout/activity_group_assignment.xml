@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    activity_group_assignment.xml  (§14.7)
+    ========================================
+    Group Assignment Screen — shown when lecturer taps the Group card in
+    the Student Editor.
+
+    Displays:
+      • Student name + current group assignment
+      • Warning note (server is authoritative)
+      • List of 4 groups (G01–G04) as radio buttons with occupancy
+        - Full groups are visually marked and disabled
+      • Confirm Assignment button
+
+    Architecture note: Populate group counts from ViewModel.
+      The Confirm button sends back the selected group via setResult().
+      GroupAssignmentActivity.RESULT_GROUP_SELECTED carries the group label.
+-->
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/welcome_bg"
+    tools:context=".GroupAssignmentActivity">
+
+    <!-- ══ APP BAR ══════════════════════════════════════════════════════════ -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary_dark"
+        app:elevation="4dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbarGroupAssign"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/primary_dark"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            app:navigationIconTint="@color/white"
+            app:title="@string/group_assign_title"
+            app:titleTextColor="@color/white" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- ══ CONTENT ═══════════════════════════════════════════════════════════ -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:padding="16dp"
+        android:clipToPadding="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- ── Student info card ─────────────────────────────────────── -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@color/primary_dark">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/tvAssignStudentName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        tools:text="Peculiar Banda" />
+                    <!-- TODO: Replace mock data with ViewModel state -->
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/group_assign_current_label"
+                            android:textColor="#B0C4D8"
+                            android:textSize="13sp"
+                            android:layout_marginEnd="8dp" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chipCurrentGroup"
+                            style="@style/Widget.MaterialComponents.Chip.Entry"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="G01"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:clickable="false"
+                            android:focusable="false"
+                            app:chipBackgroundColor="@color/action_teal"
+                            app:chipStrokeWidth="0dp"
+                            app:closeIconVisible="false"
+                            tools:text="G01"
+                            tools:ignore="SmallSp" />
+                        <!-- TODO: Replace mock data with ViewModel state -->
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ── Warning note ──────────────────────────────────────────── -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:background="#FFF8E1"
+                android:padding="12dp"
+                android:text="@string/group_assign_warning"
+                android:textColor="@color/status_warning"
+                android:textSize="13sp" />
+
+            <!-- ── Section label ─────────────────────────────────────────── -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:text="@string/group_assign_select_label"
+                android:textColor="@color/label_slate"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.08" />
+
+            <!-- ── Group RadioGroup ──────────────────────────────────────── -->
+            <RadioGroup
+                android:id="@+id/radioGroupAssign"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="24dp">
+
+                <!-- G01 -->
+                <include
+                    android:id="@+id/rowG01"
+                    layout="@layout/layout_group_assign_row" />
+
+                <!-- G02 -->
+                <include
+                    android:id="@+id/rowG02"
+                    layout="@layout/layout_group_assign_row" />
+
+                <!-- G03 -->
+                <include
+                    android:id="@+id/rowG03"
+                    layout="@layout/layout_group_assign_row" />
+
+                <!-- G04 -->
+                <include
+                    android:id="@+id/rowG04"
+                    layout="@layout/layout_group_assign_row" />
+
+            </RadioGroup>
+
+            <!-- ── Confirm button ────────────────────────────────────────── -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnConfirmAssignment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="52dp"
+                android:text="@string/group_assign_btn_confirm"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:backgroundTint="@color/action_teal"
+                app:cornerRadius="10dp" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Main application theme (Consistent Light theme for academic UI) -->
+    <style name="Theme.UniConnect" parent="Theme.MaterialComponents.Light.NoActionBar">
+
+        <!-- Primary Dark Branding (#032F30) -->
+        <item name="colorPrimary">@color/primary_dark</item>
+        <item name="colorPrimaryVariant">@color/primary_dark</item>
+        <item name="colorOnPrimary">@android:color/white</item>
+
+        <!-- Secondary Blue (#6BA3BE) -->
+        <item name="colorSecondary">@color/secondary_blue</item>
+        <item name="colorSecondaryVariant">@color/secondary_blue</item>
+        <item name="colorOnSecondary">@android:color/white</item>
+
+        <!-- Tertiary / Action Teal (#0A7075) -->
+        <item name="colorTertiary">@color/action_teal</item>
+        <item name="colorOnTertiary">@android:color/white</item>
+
+        <!-- High-contrast surface & typography colors -->
+        <item name="android:textColorPrimary">@color/title_dark_slate</item>
+        <item name="android:textColorSecondary">@color/tagline_charcoal</item>
+        <item name="colorOnSurface">@color/title_dark_slate</item>
+        <item name="editTextColor">@color/title_dark_slate</item>
+        <item name="android:textColorHint">@color/tagline_charcoal</item>
+
+        <!-- Default text input style -->
+        <item name="textInputStyle">@style/Widget.App.TextInput</item>
+
+        <!-- Error -->
+        <item name="colorError">@color/status_error_text</item>
+        <item name="colorOnError">@android:color/white</item>
+
+    </style>
+
+    <!-- Primary button -->
+    <style name="Widget.App.PrimaryButton"
+        parent="Widget.MaterialComponents.Button">
+
+        <item name="backgroundTint">@color/action_teal</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:minWidth">48dp</item>
+
+    </style>
+
+    <!-- Secondary button -->
+    <style name="Widget.App.SecondaryButton"
+        parent="Widget.MaterialComponents.Button.OutlinedButton">
+
+        <item name="strokeColor">@color/action_teal</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="android:textColor">@color/action_teal</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:minWidth">48dp</item>
+
+    </style>
+
+    <!-- Text input container style with dark visible text & placeholders -->
+    <style name="Widget.App.TextInput"
+        parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <item name="boxStrokeColor">@color/primary_dark</item>
+        <item name="boxStrokeWidth">1.5dp</item>
+        <item name="boxBackgroundMode">outline</item>
+        <item name="hintTextColor">@color/primary_dark</item>
+        <item name="android:textColorHint">@color/tagline_charcoal</item>
+        <item name="placeholderTextColor">@color/tagline_charcoal</item>
+        <item name="helperTextTextColor">@color/tagline_charcoal</item>
+        <item name="errorTextColor">@color/status_error_text</item>
+
+    </style>
+
+    <!-- Status chip -->
+    <style name="Widget.App.StatusChip"
+        parent="Widget.MaterialComponents.Chip.Entry">
+
+        <item name="android:clickable">false</item>
+        <item name="android:focusable">false</item>
+        <item name="chipBackgroundColor">?attr/colorSurface</item>
+        <item name="chipIconVisible">true</item>
+        <item name="android:iconTint">?attr/colorOnSurface</item>
+        <item name="android:minHeight">48dp</item>
+
+    </style>
+
+</resources>
