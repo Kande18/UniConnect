@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.UniConnect">
+
+        <activity
+            android:name=".WelcomeActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".StudentLoginActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".LecturerLoginActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".StudentRegisterActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".StudentProfileActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".LecturerDashboardActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".StudentGroupActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".EditStudentProfileActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".GroupChangeRequestActivity"
+            android:exported="false" />
+        <!-- Phase 5 destinations - registered here so Phase 4 navigation compiles -->
+        <activity
+            android:name=".LecturerRosterActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".LecturerStudentEditorActivity"
+            android:exported="false" />
+        <!-- Phase 5 - Group Assignment and Filter (registered for Phase 5 navigation) -->
+        <activity
+            android:name=".GroupAssignmentActivity"
+            android:exported="false" />
+
+    </application>
+
+</manifest>

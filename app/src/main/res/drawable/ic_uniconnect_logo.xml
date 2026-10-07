@@ -1,0 +1,96 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="80dp"
+    android:height="80dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- Soft background glow circle -->
+    <path
+        android:fillColor="#0D00A896"
+        android:pathData="M50,50m-46,0a46,46 0,1 1,92 0a46,46 0,1 1,-92 0" />
+
+    <!-- Outer connection arc 1 (Dark Blue #003366) -->
+    <path
+        android:strokeColor="#003366"
+        android:strokeWidth="4"
+        android:strokeLineCap="round"
+        android:pathData="M50,14 A36,36 0 0,1 86,50" />
+
+    <!-- Outer connection arc 2 (Cyan #00A896) -->
+    <path
+        android:strokeColor="#00A896"
+        android:strokeWidth="4"
+        android:strokeLineCap="round"
+        android:pathData="M86,50 A36,36 0 0,1 50,86" />
+
+    <!-- Outer connection arc 3 (Dark Blue #003366) -->
+    <path
+        android:strokeColor="#003366"
+        android:strokeWidth="4"
+        android:strokeLineCap="round"
+        android:pathData="M50,86 A36,36 0 0,1 14,50" />
+
+    <!-- Outer connection arc 4 (Cyan #00A896) -->
+    <path
+        android:strokeColor="#00A896"
+        android:strokeWidth="4"
+        android:strokeLineCap="round"
+        android:pathData="M14,50 A36,36 0 0,1 50,14" />
+
+    <!-- Top Node / Person (Dark Blue #003366) -->
+    <!-- Head -->
+    <path
+        android:fillColor="#003366"
+        android:pathData="M50,16m-6,0a6,6 0,1 1,12 0a6,6 0,1 1,-12 0" />
+    <!-- Stylized shoulders/body arch connecting towards center -->
+    <path
+        android:strokeColor="#003366"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round"
+        android:pathData="M40,29 C40,24 60,24 60,29 C60,38 54,42 50,44" />
+
+    <!-- Right Node / Person (Cyan #00A896) -->
+    <!-- Head -->
+    <path
+        android:fillColor="#00A896"
+        android:pathData="M84,50m-6,0a6,6 0,1 1,12 0a6,6 0,1 1,-12 0" />
+    <!-- Stylized shoulders/body arch -->
+    <path
+        android:strokeColor="#00A896"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round"
+        android:pathData="M71,40 C76,40 76,60 71,60 C62,60 58,54 56,50" />
+
+    <!-- Bottom Node / Person (Dark Blue #003366) -->
+    <!-- Head -->
+    <path
+        android:fillColor="#003366"
+        android:pathData="M50,84m-6,0a6,6 0,1 1,12 0a6,6 0,1 1,-12 0" />
+    <!-- Stylized shoulders/body arch -->
+    <path
+        android:strokeColor="#003366"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round"
+        android:pathData="M60,71 C60,76 40,76 40,71 C40,62 46,58 50,56" />
+
+    <!-- Left Node / Person (Cyan #00A896) -->
+    <!-- Head -->
+    <path
+        android:fillColor="#00A896"
+        android:pathData="M16,50m-6,0a6,6 0,1 1,12 0a6,6 0,1 1,-12 0" />
+    <!-- Stylized shoulders/body arch -->
+    <path
+        android:strokeColor="#00A896"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round"
+        android:pathData="M29,60 C24,60 24,40 29,40 C38,40 42,46 44,50" />
+
+    <!-- Central Nexus Hub (Interlocking circular core) -->
+    <path
+        android:fillColor="#003366"
+        android:pathData="M50,50m-7,0a7,7 0,1 1,14 0a7,7 0,1 1,-14 0" />
+    <path
+        android:fillColor="#00A896"
+        android:pathData="M50,50m-3.5,0a3.5,3.5 0,1 1,7 0a3.5,3.5 0,1 1,-7 0" />
+
+</vector>

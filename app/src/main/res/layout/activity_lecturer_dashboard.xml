@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    activity_lecturer_dashboard.xml
+    =================================
+    Lecturer Portal Hub Activity with a 4-button Bottom Navigation Bar.
+    Hosts 4 fragments seamlessly:
+      1. Overview (Metrics, Gauges, Quick Actions, Activity Feed)
+      2. Roster (Search, Filters, Student List, Add FAB)
+      3. Groups (Lab Group Capacities, Venues, Timetables, Allocations)
+      4. Requests (Student Transfer Approvals & Rejections)
+-->
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutLecturerPortalRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/welcome_bg"
+    tools:context=".LecturerDashboardActivity">
+
+    <!-- ══ TOP APP BAR / TOOLBAR ═══════════════════════════════════════════ -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayoutLecturer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary_dark"
+        app:elevation="2dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbarLecturerPortal"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="Lecturer Portal"
+            app:titleTextColor="@color/white">
+
+            <!-- Sign Out Action Button on Toolbar Right (§21) -->
+            <ImageView
+                android:id="@+id/btnToolbarSignOut"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="end"
+                android:layout_marginEnd="12dp"
+                android:padding="12dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:contentDescription="@string/desc_sign_out"
+                android:src="@drawable/ic_logout"
+                app:tint="@color/white" />
+
+        </com.google.android.material.appbar.MaterialToolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- ══ MAIN DYNAMIC TAB CONTAINER ══════════════════════════════════════ -->
+    <FrameLayout
+        android:id="@+id/fragmentContainerLecturer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <!-- ══ 4-BUTTON BOTTOM NAVIGATION BAR ══════════════════════════════════ -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavLecturer"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        app:elevation="8dp"
+        app:itemIconSize="22dp"
+        app:itemIconTint="@color/bottom_nav_color_selector"
+        app:itemTextColor="@color/bottom_nav_color_selector"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/menu_lecturer_bottom_nav" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

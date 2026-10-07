@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Application strings -->
+    <!-- General -->
+    <string name="app_name">UniConnect</string>
+    <string name="action_save">Save</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_register">Register</string>
+    <string name="action_sign_in">Sign In</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_share">Share</string>
+    <string name="action_review">Review</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_request_change">Request Change</string>
+
+    <!-- Validation messages -->
+    <string name="error_student_number_invalid">Student number must be exactly 9 digits.</string>
+    <string name="error_student_number_duplicate">Student number already exists.</string>
+    <string name="error_name_required">Name is required (2‑100 characters).</string>
+    <string name="error_programme_required">Select a programme.</string>
+    <string name="error_group_full">Group is full.</string>
+    <string name="error_network">Network error. Tap to retry.</string>
+    <string name="error_offline">No internet connection. Changes will be saved locally.</string>
+    <string name="error_sync_failed">Sync failed. Action required.</string>
+
+    <!-- UI state messages -->
+    <string name="state_loading">Loading…</string>
+    <string name="state_empty">No data found.</string>
+    <string name="state_saved_locally">Saved locally.</string>
+    <string name="state_pending">Pending verification.</string>
+    <string name="state_syncing">Syncing…</string>
+    <string name="state_synced">✓ Synced</string>
+    <string name="state_action_required">Action required.</string>
+    <string name="state_conflict">Conflict detected.</string>
+    <string name="state_group_full">Group full.</string>
+    <string name="state_session_expired">Session expired. Please sign in again.</string>
+
+    <!-- Accessibility strings -->
+    <string name="a11y_error_prefix">Error:</string>
+    <string name="a11y_status_prefix">Status:</string>
+    <string name="a11y_button_prefix">Button:</string>
+    <string name="a11y_field_label_prefix">Field:</string>
+
+    <!-- Labels for fields -->
+    <string name="label_name">Name</string>
+    <string name="label_student_number">Student Number</string>
+    <string name="label_programme">Programme</string>
+    <string name="label_password">Password</string>
+    <string name="label_confirm_password">Confirm Password</string>
+    <string name="label_lab_group">Lab Group</string>
+    <string name="label_occupancy">Occupancy</string>
+    <string name="label_occupancy_of">/ %d</string>
+    <string name="welcome_title">Welcome to UniConnect</string>
+    <string name="welcome_subtitle">Your gateway to lab group management</string>
+    <string name="btn_student_sign_in">Student Sign In</string>
+    <string name="btn_student_register">Student Register</string>
+    <string name="btn_lecturer_sign_in">Lecturer Sign In</string>
+    <string name="hint_student_number">Enter 9‑digit student number</string>
+    <string name="hint_password">Enter password</string>
+    <string name="error_invalid_credentials">Invalid student number or password.</string>
+    <string name="btn_sign_in">Sign In</string>
+    <string name="link_register">Register</string>
+    <string name="link_lecturer_sign_in">Lecturer Sign In</string>
+
+    <!-- Welcome Screen (UNI-CONNECT Portal Selection) -->
+    <string name="welcome_app_title">UNI-CONNECT</string>
+    <string name="welcome_tagline">Empowering academic\nconnections &amp; collaboration.</string>
+    <string name="portal_selection_label">Select your portal to continue:</string>
+    <string name="student_portal_title">Student Portal</string>
+    <string name="lecturer_portal_title">Lecturer Login</string>
+    <string name="desc_app_logo">UNI-CONNECT logo with connected community emblem</string>
+    <string name="desc_hero_illustration">Illustration of university building and students on campus</string>
+    <string name="desc_student_portal">Open Student Portal</string>
+    <string name="desc_lecturer_portal">Open Lecturer Portal</string>
+    <string name="msg_new_student">New student?</string>
+    <string name="action_register_now">Register here</string>
+    <string name="desc_register_direct">Register as a new student</string>
+
+    <!-- Student Registration Strings (§13.2) -->
+    <string name="register_title">Student Registration</string>
+    <string name="register_subtitle">Register to access your lab group and academic portal</string>
+    <string name="label_claim_code">Claim Code</string>
+    <string name="hint_claim_code">Enter code provided by department</string>
+    <string name="helper_name">2–100 characters</string>
+    <string name="helper_student_number">Exactly 9 digits (preserves leading zeroes)</string>
+    <string name="helper_claim_code">Required for department ownership verification</string>
+    <string name="error_password_length">Password must be at least 6 characters.</string>
+    <string name="error_passwords_dont_match">Passwords do not match.</string>
+    <string name="error_claim_code_required">Claim code is required.</string>
+    <string name="msg_already_have_account">Already registered?</string>
+    <string name="action_sign_in_link">Sign in here</string>
+    <string name="registration_success_message">Registration complete! You can now sign in.</string>
+
+    <!-- Student Login Strings (§13.3) -->
+    <string name="login_welcome_back">Student Sign In</string>
+    <string name="login_student_subtitle">Enter your 9-digit student credentials to sign in</string>
+    <string name="msg_no_account">Don\'t have an account?</string>
+
+    <!-- Lecturer Login Strings (§14.1) -->
+    <string name="lecturer_login_heading">Lecturer Sign In</string>
+    <string name="lecturer_login_subtitle">Sign in to manage student lab groups and roster allocations</string>
+    <string name="label_lecturer_id">Staff Identifier</string>
+    <string name="hint_lecturer_id">Enter staff ID or email</string>
+    <string name="error_lecturer_id_required">Staff identifier is required.</string>
+    <string name="btn_lecturer_login">Sign In to Dashboard</string>
+    <string name="link_back_to_welcome">Back to Main Gateway</string>
+    <string name="link_student_portal">Go to Student Portal</string>
+
+    <!-- Programme Choice Array (§13.2) -->
+    <string-array name="programme_options">
+        <item>CS (Computer Science)</item>
+        <item>IT (Information Technology)</item>
+        <item>DS (Data Science)</item>
+    </string-array>
+
+    <!-- Lecturer Dashboard Strings (§14.2) -->
+    <string name="dashboard_title">Lecturer Dashboard</string>
+    <string name="dashboard_welcome">Welcome back, Lecturer</string>
+    <string name="dashboard_subtitle">Lab Group Management Overview</string>
+    <string name="dashboard_section_groups">Group Summary</string>
+    <string name="dashboard_section_quick">Quick Actions</string>
+    <string name="dashboard_total_students">Total Students</string>
+    <string name="dashboard_unassigned">Unassigned</string>
+    <string name="dashboard_btn_view_roster">View Student Roster</string>
+    <string name="dashboard_btn_add_student">Add Student</string>
+    <string name="dashboard_sync_status">✓ Synced</string>
+    <string name="dashboard_sign_out">Sign Out</string>
+    <string name="desc_sign_out">Sign out of lecturer dashboard</string>
+    <string name="desc_dashboard_group_card">Group %s statistics card</string>
+    <string name="a11y_total_students">Total active students: %d</string>
+    <string name="a11y_group_count">%s has %d students</string>
+
+    <!-- Lecturer Student Roster Strings (§14.3) -->
+    <string name="roster_title">Student Roster</string>
+    <string name="roster_empty">No students found.</string>
+    <string name="roster_empty_search">No students match your search.</string>
+    <string name="roster_loading">Loading students…</string>
+    <string name="roster_error">Could not load students. Check your connection and try again.</string>
+    <string name="roster_offline">Offline — showing cached data.</string>
+    <string name="hint_search_students">Search by name or student number</string>
+    <string name="filter_label_programme">Programme</string>
+    <string name="filter_label_group">Lab Group</string>
+    <string name="filter_all">All</string>
+    <string name="btn_filter">Filter</string>
+    <string name="btn_search">Search</string>
+    <string name="desc_search_field">Search students by name or student number</string>
+    <string name="desc_filter_button">Open filter options</string>
+    <string name="desc_student_card">Student record for %s</string>
+
+    <!-- Phase 5 — Lecturer Student Editor (§14.6) -->
+    <string name="editor_title_add">Add Student</string>
+    <string name="editor_title_edit">Edit Student</string>
+    <string name="editor_subtitle_add">Enter the details for the new student</string>
+    <string name="editor_subtitle_edit">Update the student\'s details below</string>
+    <string name="editor_section_details">Student Details</string>
+    <string name="editor_section_group">Lab Group Assignment</string>
+    <string name="editor_btn_save">Save Changes</string>
+    <string name="editor_btn_add">Add Student</string>
+    <string name="editor_btn_delete">Delete Student</string>
+    <string name="editor_success_saved">Student record saved successfully.</string>
+    <string name="editor_success_added">Student added successfully.</string>
+    <string name="editor_error_save">Could not save changes. Please try again.</string>
+    <string name="editor_label_group">Lab Group</string>
+    <string name="editor_hint_group">Select lab group</string>
+    <string name="hint_name">Enter full name</string>
+
+    <!-- Phase 5 — Group Assignment Screen (§14.7) -->
+    <string name="group_assign_title">Assign Lab Group</string>
+    <string name="group_assign_current_label">Current Assignment:</string>
+    <string name="group_assign_select_label">Select a group:</string>
+    <string name="group_assign_unassigned">Unassigned</string>
+    <string name="group_assign_full_tag">FULL</string>
+    <string name="group_assign_btn_confirm">Confirm Assignment</string>
+    <string name="group_assign_warning">Note: The server is the final authority on group capacity.</string>
+    <string name="desc_group_row">%s — %d of %d students</string>
+    <string name="desc_group_full_row">%s — Full (%d of %d students)</string>
+
+    <!-- Phase 5 — Delete Confirmation (§14.8) -->
+    <string name="delete_title">Delete Student?</string>
+    <string name="delete_message">This will deactivate the student account and remove the student from the active roster.</string>
+    <string name="delete_btn_confirm">Delete</string>
+    <string name="delete_btn_cancel">Cancel</string>
+    <string name="delete_student_name_label">Student: %s</string>
+
+    <!-- Phase 5 — Filter labels -->
+    <string name="filter_title">Filter Students</string>
+    <string name="filter_btn_apply">Apply Filters</string>
+    <string name="filter_btn_reset">Reset</string>
+    <string name="filter_programme_all">All Programmes</string>
+    <string name="filter_group_all">All Groups</string>
+
+    <!-- ═══ Batch 1 — student screens: moved from hardcoded layout text ═══ -->
+    <string name="desc_sign_out_student">Sign out of student account</string>
+
+    <string name="profile_academic_details">Academic Details</string>
+    <string name="profile_confirmed_group">Confirmed Lab Group</string>
+    <string name="profile_request_correction">Wrong student number? Request lecturer correction</string>
+    <string name="profile_correction_toast">Correction request forwarded to lecturer.</string>
+    <string name="profile_view_group_details">View Group Schedule &amp; Details</string>
+    <string name="profile_btn_edit">Edit Profile</string>
+    <string name="profile_btn_transfer">Transfer Group</string>
+
+    <string name="edit_profile_title">Edit Profile</string>
+    <string name="edit_profile_subtitle">Update your personal and academic programme information</string>
+    <string name="edit_profile_saved">✓ Profile changes saved successfully!</string>
+    <string name="edit_profile_locked_notice">Students may edit name and programme. The 9-digit student number cannot be edited directly; contact a lecturer to request a correction.</string>
+    <string name="edit_profile_locked_helper">Locked. Contact academic staff for correction.</string>
+    <string name="edit_profile_btn_save">Save Profile Changes</string>
+    <string name="edit_profile_btn_cancel">Cancel &amp; Return to Profile</string>
+
+    <string name="group_title">My Laboratory Group</string>
+    <string name="group_subtitle">Official practical laboratory session and cohort allocation</string>
+    <string name="group_assigned_cohort">Assigned Cohort</string>
+    <string name="group_status_confirmed">Confirmed</string>
+    <string name="group_occupancy_label">Group Occupancy:</string>
+    <string name="group_session_info">Session Information</string>
+    <string name="group_schedule_label">Weekly Schedule:</string>
+    <string name="group_location_label">Lab Location:</string>
+    <string name="group_instructor_label">Instructor In Charge:</string>
+    <string name="group_btn_request_transfer">Request Transfer to Another Group</string>
+
+    <string name="transfer_title">Group Transfer Request</string>
+    <string name="transfer_subtitle">Request a transfer to a different practical lab group</string>
+    <string name="transfer_current_status_label">Current Request Status</string>
+    <string name="transfer_no_active">No Active Request</string>
+    <string name="transfer_no_active_detail">You are currently assigned to Group G01. You may submit a request below.</string>
+    <string name="transfer_current_assignment">Current Assignment: Group G01 (12 / 15 Students)</string>
+    <string name="transfer_select_target">Select Desired Target Group:</string>
+    <string name="transfer_option_g02">Group G02 — 10 / 15 Students (5 Available)</string>
+    <string name="transfer_option_g03">Group G03 — 9 / 15 Students (6 Available)</string>
+    <string name="transfer_option_g04">Group G04 — 15 / 15 Students [FULL]</string>
+    <string name="transfer_reason_hint">Reason for transfer request (optional)</string>
+    <string name="transfer_reason_helper">e.g. Timetable clash, transport constraints</string>
+    <string name="transfer_btn_submit">Submit Transfer Request</string>
+    <string name="transfer_default_target">Group G02</string>
+    <string name="transfer_status_pending">Status: Pending Lecturer Review</string>
+    <string name="transfer_pending_detail">Transfer request for %1$s has been submitted. Awaiting lecturer confirmation.</string>
+    <string name="transfer_submitted_toast">Transfer request submitted.</string>
+
+    <!-- MOCK DATA — replace with ViewModel/Room values when the backend is connected -->
+    <string name="mock_student_name">Peculiar Banda</string>
+    <string name="mock_student_id_header">Student ID: 202400123</string>
+    <string name="mock_student_number">202400123</string>
+    <string name="mock_programme_display">Computer Science (CS)</string>
+    <string name="mock_programme_option">CS (Computer Science)</string>
+    <string name="mock_group_badge">G01</string>
+    <string name="mock_occupancy_summary">12 / 15 Students Enrolled (3 spots remaining)</string>
+    <string name="mock_group_name">Laboratory Group G01</string>
+    <string name="mock_group_occupancy">12 / 15 Students</string>
+    <string name="mock_group_places">3 places available. Final capacity governed by server.</string>
+    <string name="mock_group_schedule">Wednesdays, 14:00 – 16:00</string>
+    <string name="mock_group_location">Computer Lab 3B, Science Block</string>
+    <string name="mock_group_instructor">Dr. M. Tembo</string>
+
+    <!-- ═══ Batch 2 — lecturer roster / editor ═══ -->
+    <string name="roster_empty_hint">Try adjusting your search or filters.</string>
+    <string name="roster_btn_retry">Retry</string>
+    <string name="desc_edit_student">Edit student</string>
+    <string name="desc_change_group">Change group</string>
+    <string name="editor_saving">Saving…</string>
+    <string name="editor_discard_title">Discard changes?</string>
+    <string name="editor_discard_message">You have unsaved changes. If you leave now, they will be lost.</string>
+    <string name="editor_discard_keep">Keep editing</string>
+    <string name="editor_discard_confirm">Discard</string>
+    <!-- MOCK — counts should come from the roster data -->
+    <string name="mock_roster_chip_all">All (46)</string>
+    <string name="mock_roster_chip_unassigned">Unassigned (3)</string>
+    <string name="roster_chip_cs">CS</string>
+    <string name="roster_chip_it">IT</string>
+</resources>

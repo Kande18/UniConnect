@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    activity_lecturer_student_editor.xml  (§14.6)
+    ===============================================
+    Lecturer Student Editor — works in ADD mode and EDIT mode.
+
+    In ADD mode  : title = "Add Student",  no Delete button shown.
+    In EDIT mode : title = "Edit Student", Delete button visible at bottom.
+
+    Fields:
+      - Student Name         (editable)
+      - Student Number       (editable by lecturer only)
+      - Programme dropdown   (CS / IT / DS)
+      - Lab Group            → tapping opens GroupAssignmentActivity
+
+    State views (toggle visibility from Java):
+      - progressSaving  : shown while saving
+      - bannerSuccess   : green success banner
+      - bannerError     : red error banner
+
+    Architecture note: All TextInputLayouts and the group field are IDs
+    the ViewModel team can use to populate/observe.
+-->
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/welcome_bg"
+    tools:context=".LecturerStudentEditorActivity"
+    tools:ignore="UnusedAttribute">
+
+    <!-- ══ APP BAR ══════════════════════════════════════════════════════════ -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary_dark"
+        app:elevation="4dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbarEditor"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/primary_dark"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            app:navigationIconTint="@color/white"
+            app:title="@string/editor_title_edit"
+            app:titleTextColor="@color/white" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- ══ SCROLLABLE FORM ═══════════════════════════════════════════════════ -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- ── Subtitle ──────────────────────────────────────────────── -->
+            <TextView
+                android:id="@+id/tvEditorSubtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="@string/editor_subtitle_edit"
+                android:textColor="@color/tagline_charcoal"
+                android:textSize="14sp" />
+
+            <!-- ── SUCCESS BANNER (hidden by default) ────────────────────── -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/bannerEditorSuccess"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:visibility="gone"
+                app:cardCornerRadius="8dp"
+                app:cardBackgroundColor="#E8F5E9"
+                app:cardElevation="0dp"
+                tools:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tvEditorSuccessMsg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="14dp"
+                    android:text="@string/editor_success_saved"
+                    android:textColor="@color/status_success_dark"
+                    android:accessibilityLiveRegion="polite"
+                    android:textSize="14sp" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ── ERROR BANNER (hidden by default) ──────────────────────── -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/bannerEditorError"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:visibility="gone"
+                app:cardCornerRadius="8dp"
+                app:cardBackgroundColor="#FFEBEE"
+                app:cardElevation="0dp"
+                tools:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tvEditorErrorMsg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="14dp"
+                    android:text="@string/editor_error_save"
+                    android:textColor="@color/status_error_text"
+                    android:textSize="14sp"
+                    android:accessibilityLiveRegion="assertive" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ── SECTION: Student Details ───────────────────────────────── -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:text="@string/editor_section_details"
+                android:accessibilityHeading="true"
+                android:textColor="@color/label_slate"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.08" />
+
+            <!-- Student Name -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilEditorName"
+                style="@style/Widget.App.TextInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                android:hint="@string/label_name"
+                app:helperText="@string/helper_name">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etEditorName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName|textCapWords"
+                    android:textColor="@color/title_dark_slate"
+                    android:textColorHint="@color/tagline_charcoal"
+                    tools:text="Peculiar Banda" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Student Number -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilEditorStudentNumber"
+                style="@style/Widget.App.TextInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                android:hint="@string/label_student_number"
+                app:helperText="@string/helper_student_number">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etEditorStudentNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:digits="0123456789"
+                    android:maxLength="9"
+                    android:textColor="@color/title_dark_slate"
+                    android:textColorHint="@color/tagline_charcoal"
+                    tools:text="202400123" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Programme Dropdown -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilEditorProgramme"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                android:hint="@string/label_programme">
+
+                <AutoCompleteTextView
+                    android:id="@+id/actvEditorProgramme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:textColor="@color/title_dark_slate"
+                    android:textColorHint="@color/tagline_charcoal"
+                    tools:text="CS (Computer Science)" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- ── SECTION: Lab Group Assignment ──────────────────────────── -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="12dp"
+                android:text="@string/editor_section_group"
+                android:accessibilityHeading="true"
+                android:textColor="@color/label_slate"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.08" />
+
+            <!-- Group Assignment button (navigates to GroupAssignmentActivity) -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardGroupAssign"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp"
+                    android:gravity="center_vertical">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/editor_section_group"
+                            android:textColor="@color/tagline_charcoal"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tvCurrentGroup"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:textColor="@color/title_dark_slate"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            tools:text="G01" />
+                        <!-- TODO: Replace mock data with ViewModel state -->
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_arrow_back"
+                        android:rotation="180"
+                        android:alpha="0.5"
+                        android:contentDescription="@string/desc_change_group"
+                        android:scaleType="fitCenter" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ── SAVE BUTTON ─────────────────────────────────────────────── -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEditorSave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:minHeight="52dp"
+                android:text="@string/editor_btn_save"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:backgroundTint="@color/action_teal"
+                app:cornerRadius="10dp" />
+
+            <!-- ── CANCEL BUTTON ───────────────────────────────────────────── -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEditorCancel"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:minHeight="52dp"
+                android:text="@string/action_cancel"
+                android:textColor="@color/tagline_charcoal"
+                android:textSize="16sp"
+                app:strokeColor="@color/tagline_charcoal"
+                app:strokeWidth="1dp"
+                app:cornerRadius="10dp" />
+
+            <!-- ── DELETE BUTTON (EDIT mode only — hidden in ADD mode) ──────── -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEditorDelete"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:minHeight="52dp"
+                android:text="@string/editor_btn_delete"
+                android:textColor="@color/status_error_text"
+                android:textSize="16sp"
+                android:visibility="gone"
+                app:strokeColor="@color/status_error_text"
+                app:strokeWidth="1.5dp"
+                app:cornerRadius="10dp"
+                app:icon="@drawable/ic_delete"
+                app:iconTint="@color/status_error_text"
+                tools:visibility="visible" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- ══ SAVING PROGRESS OVERLAY ══════════════════════════════════════════ -->
+    <LinearLayout
+        android:id="@+id/progressSaving"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="#80000000"
+        android:visibility="gone"
+        tools:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/white" />
+            android:importantForAccessibility="no"
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/editor_saving"
+            android:accessibilityLiveRegion="polite"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

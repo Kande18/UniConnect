@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    fragment_filter_dialog.xml  (§14.5)
+    =====================================
+    Bottom-sheet filter layout.
+    Chip groups allow selecting one programme and one group at a time (single selection).
+    Chips are styled as choice chips (toggleable).
+-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <!-- Handle bar -->
+    <View
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="20dp"
+        android:background="#CCCCCC" />
+
+    <!-- Title -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="@string/filter_title"
+        android:textColor="@color/title_dark_slate"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!-- ── Programme ─────────────────────────────────────────────────────── -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/filter_label_programme"
+        android:textColor="@color/label_slate"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.08" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroupProgramme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        app:selectionRequired="false"
+        app:singleSelection="true">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipProgAll"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/filter_all"
+            android:textColor="@color/title_dark_slate"
+            app:chipBackgroundColor="@android:color/transparent"
+            app:chipStrokeColor="@color/secondary_blue"
+            app:chipStrokeWidth="1dp"
+            app:checkedIconTint="@color/white" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipProgCS"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CS"
+            android:textColor="@color/title_dark_slate"
+            app:chipBackgroundColor="@android:color/transparent"
+            app:chipStrokeColor="@color/secondary_blue"
+            app:chipStrokeWidth="1dp" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipProgIT"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="IT"
+            android:textColor="@color/title_dark_slate"
+            app:chipBackgroundColor="@android:color/transparent"
+            app:chipStrokeColor="@color/secondary_blue"
+            app:chipStrokeWidth="1dp" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipProgDS"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DS"
+            android:textColor="@color/title_dark_slate"
+            app:chipBackgroundColor="@android:color/transparent"
+            app:chipStrokeColor="@color/secondary_blue"
+            app:chipStrokeWidth="1dp" />
+
+    </com.google.android.material.chip.ChipGroup>
+
+    <!-- ── Lab Group ──────────────────────────────────────────────────────── -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/filter_label_group"
+        android:textColor="@color/label_slate"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.08" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroupLabGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        app:selectionRequired="false"
+        app:singleSelection="true">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipGroupAll"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/filter_all"
+            android:textColor="@color/title_dark_slate"
+            app:chipBackgroundColor="@android:color/transparent"
+            app:chipStrokeColor="@color/action_teal"
+            app:chipStrokeWidth="1dp" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipGroupG01"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="G01"
+            android:textColor="@color/title_dark_slate"
+            app:chipBackgroundColor="@android:color/transparent"
+            app:chipStrokeColor="@color/action_teal"
+            app:chipStrokeWidth="1dp" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipGroupG02"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="G02"
+            android:textColor="@color/title_dark_slate"
+            app:chipBackgroundColor="@android:color/transparent"
+            app:chipStrokeColor="@color/action_teal"
+            app:chipStrokeWidth="1dp" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipGroupG03"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="G03"
+            android:textColor="@color/title_dark_slate"
+            app:chipBackgroundColor="@android:color/transparent"
+            app:chipStrokeColor="@color/action_teal"
+            app:chipStrokeWidth="1dp" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipGroupG04"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="G04"
+            android:textColor="@color/title_dark_slate"
+            app:chipBackgroundColor="@android:color/transparent"
+            app:chipStrokeColor="@color/action_teal"
+            app:chipStrokeWidth="1dp" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipGroupUnassigned"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Unassigned"
+            android:textColor="@color/title_dark_slate"
+            app:chipBackgroundColor="@android:color/transparent"
+            app:chipStrokeColor="@color/status_warning"
+            app:chipStrokeWidth="1dp" />
+
+    </com.google.android.material.chip.ChipGroup>
+
+    <!-- ── Action buttons ────────────────────────────────────────────────── -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnResetFilters"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="8dp"
+            android:minHeight="48dp"
+            android:text="@string/filter_btn_reset"
+            android:textColor="@color/tagline_charcoal"
+            app:strokeColor="@color/tagline_charcoal"
+            app:strokeWidth="1dp"
+            app:cornerRadius="8dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnApplyFilters"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:minHeight="48dp"
+            android:text="@string/filter_btn_apply"
+            android:textColor="@color/white"
+            app:backgroundTint="@color/action_teal"
+            app:cornerRadius="8dp" />
+
+    </LinearLayout>
+
+</LinearLayout>
