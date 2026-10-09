@@ -38,6 +38,14 @@ async function runAllTests() {
   console.log('======================================================\n');
 
   try {
+    // Reset test state so tests are fully idempotent
+    try {
+      await query('UPDATE claim_codes SET is_used = FALSE');
+      await query("UPDATE students SET lab_group_id = 'G01' WHERE student_number = '202400123'");
+    } catch (e) {
+      // In case database connection isn't established yet
+    }
+
     // 1. Health check
     console.log('[1] Health Check Endpoint:');
     const health = await api('GET', '/health');
@@ -76,15 +84,16 @@ async function runAllTests() {
     });
     assert(badClaim.status === 400, 'Rejects invalid claim code');
 
+    const regStudentNum = '2024' + Math.floor(10000 + Math.random() * 89999);
     const validReg = await api('POST', '/auth/register', {
-      studentNumber: '202400555',
+      studentNumber: regStudentNum,
       name: 'Brian Phiri',
       programme: 'DS',
       claimCode: 'CLAIM-DS-2024',
       password: 'Password123!'
     });
     assert(validReg.status === 201, 'Registers student with valid CLAIM-DS-2024');
-    assert(validReg.data.data.studentNumber === '202400555', 'Preserves 9-digit student number');
+    assert(validReg.data && validReg.data.data && validReg.data.data.studentNumber === regStudentNum, 'Preserves 9-digit student number');
 
     // 4. Student Portal
     console.log('\n[4] Student Portal Endpoints:');
@@ -122,22 +131,23 @@ async function runAllTests() {
 
     // 7. Lecturer Operations (Add, Edit, Delete)
     console.log('\n[7] Lecturer Student Management:');
+    const addStudentNum = '2024' + Math.floor(10000 + Math.random() * 89999);
     const addStudent = await api('POST', '/lecturer/students', {
-      studentNumber: '202409876',
+      studentNumber: addStudentNum,
       name: 'David Mwape',
       programme: 'CS',
       labGroup: 'G03'
     }, lecturerToken);
     assert(addStudent.status === 201, 'POST /api/lecturer/students creates student');
 
-    const updateStudent = await api('PUT', '/lecturer/students/202409876', {
+    const updateStudent = await api('PUT', `/lecturer/students/${addStudentNum}`, {
       name: 'David K. Mwape',
       programme: 'CS',
       labGroup: 'G02'
     }, lecturerToken);
     assert(updateStudent.status === 200, 'PUT /api/lecturer/students updates student');
 
-    const deleteStudent = await api('DELETE', '/lecturer/students/202409876', null, lecturerToken);
+    const deleteStudent = await api('DELETE', `/lecturer/students/${addStudentNum}`, null, lecturerToken);
     assert(deleteStudent.status === 200, 'DELETE /api/lecturer/students soft deletes student');
 
     // 8. Transfer Requests & Atomic Approvals

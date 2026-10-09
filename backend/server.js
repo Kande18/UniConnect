@@ -1,7 +1,11 @@
+const path = require('path');
+const dotenv = require('dotenv');
+dotenv.config({ path: path.resolve(__dirname, '.env') });
+dotenv.config();
+
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
-const dotenv = require('dotenv');
 const { query, testConnection, getDbType } = require('./config/db');
 
 // Import Route Handlers
@@ -11,8 +15,6 @@ const groupRoutes = require('./routes/groupRoutes');
 const requestRoutes = require('./routes/requestRoutes');
 const lecturerRoutes = require('./routes/lecturerRoutes');
 const syncRoutes = require('./routes/syncRoutes');
-
-dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
