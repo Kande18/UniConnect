@@ -93,11 +93,23 @@ public class LecturerLoginActivity extends AppCompatActivity {
             isValid = false;
         }
 
-        if (isValid) {
-            // Smoothly navigate to Lecturer Dashboard (Phase 4 landing destination)
-            Intent intent = new Intent(LecturerLoginActivity.this, LecturerDashboardActivity.class);
-            intent.putExtra("LOGGED_IN_STAFF_ID", lecturerId);
-            startActivity(intent);
+        if (!isValid) {
+            return;
         }
+
+        // Validate lecturer credentials (matching official department staff record)
+        if (!"STF-2024-88".equalsIgnoreCase(lecturerId) || !"LecturerPass2026!".equals(password)) {
+            cardLecturerError.setVisibility(View.VISIBLE);
+            tvLecturerErrorMessage.setText("Invalid lecturer credentials. Please verify your Staff ID and password.");
+            tilLecturerId.setError(getString(R.string.hint_password));
+            tilLecturerPassword.setError(getString(R.string.hint_password));
+            return;
+        }
+
+        // Smoothly navigate to Lecturer Dashboard (Phase 4 landing destination)
+        Intent intent = new Intent(LecturerLoginActivity.this, LecturerDashboardActivity.class);
+        intent.putExtra("LOGGED_IN_STAFF_ID", lecturerId);
+        startActivity(intent);
+        finish();
     }
 }

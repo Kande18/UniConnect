@@ -188,4 +188,13 @@
     <string name="filter_btn_reset">Reset</string>
     <string name="filter_programme_all">All Programmes</string>
     <string name="filter_group_all">All Groups</string>
+
+    <!-- Google Sign-In and Enhanced Auth -->
+    <string name="google_sign_in">Sign in with Google</string>
+    <string name="google_sign_up">Continue with Google</string>
+    <string name="google_client_id">392584165466-uth50953q8gcu5kuc4lr9qe6j6t1ssqs.apps.googleusercontent.com</string>
+    <string name="label_email">Email Address</string>
+    <string name="hint_google_linked">Provided by Google</string>
+    <string name="error_wrong_credentials">Wrong credentials. Please check your student number and password, or tap Register below to create an account.</string>
+    <string name="divider_or">─── OR ───</string>
 </resources>

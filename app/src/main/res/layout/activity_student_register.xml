@@ -78,6 +78,34 @@
                     android:textStyle="bold" />
             </com.google.android.material.card.MaterialCardView>
 
+            <!-- Google Sign Up Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnGoogleRegister"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/portal_button_height"
+                android:layout_marginBottom="12dp"
+                android:backgroundTint="@color/white"
+                android:text="@string/google_sign_up"
+                android:textColor="@color/title_dark_slate"
+                android:textSize="@dimen/text_size_medium"
+                app:cornerRadius="12dp"
+                app:icon="@drawable/ic_google"
+                app:iconGravity="textStart"
+                app:iconPadding="12dp"
+                app:iconTint="@null"
+                app:strokeColor="#DADCE0"
+                app:strokeWidth="1dp" />
+
+            <!-- Divider OR -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="@string/divider_or"
+                android:textColor="@color/tagline_charcoal"
+                android:textSize="@dimen/text_size_small" />
+
             <!-- 1. Full Student Name Input -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilFullName"
@@ -96,6 +124,26 @@
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName|textCapWords"
                     android:maxLength="100"
+                    android:textColor="@color/title_dark_slate"
+                    android:textColorHint="@color/tagline_charcoal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- 1b. Email Address Input (pre-populated and grayed out with Google) -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilEmail"
+                style="@style/Widget.App.TextInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_medium"
+                android:hint="@string/label_email"
+                app:errorEnabled="true"
+                app:helperTextEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
                     android:textColor="@color/title_dark_slate"
                     android:textColorHint="@color/tagline_charcoal" />
             </com.google.android.material.textfield.TextInputLayout>

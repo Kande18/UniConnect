@@ -13,6 +13,7 @@ import com.google.android.material.button.MaterialButton;
 
 /**
  * Fragment displaying the Student's Profile and Overview (§13.4).
+ * Dynamically binds the authenticated student's real profile data.
  */
 public class StudentProfileFragment extends Fragment {
 
@@ -37,7 +38,14 @@ public class StudentProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         initViews(view);
+        populateProfileData();
         setupListeners();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        populateProfileData();
     }
 
     private void initViews(View view) {
@@ -52,10 +60,38 @@ public class StudentProfileFragment extends Fragment {
         btnQuickRequestTransfer = view.findViewById(R.id.btnQuickRequestTransfer);
     }
 
+    private void populateProfileData() {
+        if (!isAdded()) return;
+        UserManager userManager = UserManager.getInstance(requireContext());
+        String name = userManager.getFullName();
+        String studentNumber = userManager.getStudentNumber();
+        String progCode = userManager.getProgramme();
+
+        String progFullName = "Computer Science (CS)";
+        if ("IT".equalsIgnoreCase(progCode)) progFullName = "Information Technology (IT)";
+        else if ("DS".equalsIgnoreCase(progCode)) progFullName = "Data Science (DS)";
+
+        if (tvProfileStudentNameHeader != null) {
+            tvProfileStudentNameHeader.setText(name);
+        }
+        if (tvProfileStudentNumberHeader != null) {
+            tvProfileStudentNumberHeader.setText("Student ID: " + studentNumber);
+        }
+        if (tvDisplayFullName != null) {
+            tvDisplayFullName.setText(name);
+        }
+        if (tvDisplayStudentNumber != null) {
+            tvDisplayStudentNumber.setText(studentNumber);
+        }
+        if (tvDisplayProgramme != null) {
+            tvDisplayProgramme.setText(progFullName);
+        }
+    }
+
     private void setupListeners() {
         if (btnRequestCorrection != null) {
             btnRequestCorrection.setOnClickListener(v -> {
-                Toast.makeText(requireContext(), "Correction request forwarded to lecturer.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "Correction request forwarded to coordinator.", Toast.LENGTH_SHORT).show();
             });
         }
 

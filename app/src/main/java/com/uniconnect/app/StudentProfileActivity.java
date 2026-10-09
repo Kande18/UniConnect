@@ -69,6 +69,9 @@ public class StudentProfileActivity extends AppCompatActivity {
     private void setupSignOutListener() {
         if (btnToolbarSignOut != null) {
             btnToolbarSignOut.setOnClickListener(v -> {
+                // Clear active student session
+                UserManager.getInstance(StudentProfileActivity.this).logout();
+
                 // Return cleanly to WelcomeActivity (§21 Account Switching / Sign Out)
                 Intent intent = new Intent(StudentProfileActivity.this, WelcomeActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

@@ -40,7 +40,21 @@ public class EditStudentProfileFragment extends Fragment {
 
         initViews(view);
         setupProgrammeDropdown();
+        prefillCurrentUserData();
         setupListeners();
+    }
+
+    private void prefillCurrentUserData() {
+        UserManager userManager = UserManager.getInstance(requireContext());
+        if (etEditFullName != null) {
+            etEditFullName.setText(userManager.getFullName());
+        }
+        if (actvEditProgramme != null) {
+            String prog = userManager.getProgramme();
+            if ("IT".equals(prog)) actvEditProgramme.setText("Information Technology (IT)", false);
+            else if ("DS".equals(prog)) actvEditProgramme.setText("Data Science (DS)", false);
+            else actvEditProgramme.setText("Computer Science (CS)", false);
+        }
     }
 
     private void initViews(View view) {
@@ -76,14 +90,21 @@ public class EditStudentProfileFragment extends Fragment {
     private void saveChanges() {
         tilEditFullName.setError(null);
         String name = etEditFullName.getText() != null ? etEditFullName.getText().toString().trim() : "";
+        String progText = actvEditProgramme.getText() != null ? actvEditProgramme.getText().toString() : "";
 
         if (TextUtils.isEmpty(name) || name.length() < 2 || name.length() > 100) {
             tilEditFullName.setError(getString(R.string.error_name_required));
             return;
         }
 
+        String progCode = "CS";
+        if (progText.contains("IT")) progCode = "IT";
+        else if (progText.contains("DS")) progCode = "DS";
+
+        UserManager.getInstance(requireContext()).updateProfile(name, progCode);
+
         cardEditProfileStatus.setVisibility(View.VISIBLE);
-        btnSaveProfileChanges.postDelayed(this::returnToProfileTab, 900);
+        btnSaveProfileChanges.postDelayed(this::returnToProfileTab, 700);
     }
 
     private void returnToProfileTab() {

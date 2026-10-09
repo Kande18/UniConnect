@@ -154,6 +154,34 @@
                 android:textStyle="bold"
                 app:cornerRadius="12dp" />
 
+            <!-- Divider OR -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:text="@string/divider_or"
+                android:textColor="@color/tagline_charcoal"
+                android:textSize="@dimen/text_size_small" />
+
+            <!-- Google Sign In Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnGoogleSignIn"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/portal_button_height"
+                android:backgroundTint="@color/white"
+                android:text="@string/google_sign_in"
+                android:textColor="@color/title_dark_slate"
+                android:textSize="@dimen/text_size_medium"
+                app:cornerRadius="12dp"
+                app:icon="@drawable/ic_google"
+                app:iconGravity="textStart"
+                app:iconPadding="12dp"
+                app:iconTint="@null"
+                app:strokeColor="#DADCE0"
+                app:strokeWidth="1dp" />
+
             <!-- "Don't have an account? Register" Link -->
             <LinearLayout
                 android:layout_width="wrap_content"
