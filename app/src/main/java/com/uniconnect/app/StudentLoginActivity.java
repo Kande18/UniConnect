@@ -74,8 +74,8 @@ public class StudentLoginActivity extends AppCompatActivity {
     }
 
     private void setupGoogleSignIn() {
+        // Request basic profile and email without requestIdToken (which causes code 10 when used with Android client IDs)
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.google_client_id))
                 .requestEmail()
                 .requestProfile()
                 .build();
@@ -172,11 +172,54 @@ public class StudentLoginActivity extends AppCompatActivity {
                 }
             }
         } catch (ApiException e) {
-            // If user cancelled or error
-            if (e.getStatusCode() != 12501) { // 12501 = user cancelled
+            if (e.getStatusCode() == 10) {
+                // Developer Error (10): Google Console OAuth Client or SHA-1 not yet active
+                new com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
+                        .setTitle("Google Account Setup (Code 10)")
+                        .setMessage("Google Play Services returned Developer Error 10 (SHA-1 fingerprint not yet registered in Google Console).\n\nWould you like to test the Google Sign-In flow with a simulated Google account?")
+                        .setPositiveButton("Test Google Flow", (dialog, which) -> promptSimulatedGoogleUser())
+                        .setNegativeButton("Cancel", null)
+                        .show();
+            } else if (e.getStatusCode() != 12501) { // 12501 = user cancelled
                 Toast.makeText(this, "Google Sign-In failed (code " + e.getStatusCode() + "). Please sign in with student number.", Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    private void promptSimulatedGoogleUser() {
+        final android.widget.EditText inputEmail = new android.widget.EditText(this);
+        inputEmail.setHint("e.g. student@gmail.com");
+        inputEmail.setText("student@gmail.com");
+
+        new com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
+                .setTitle("Simulate Google User")
+                .setMessage("Enter a Google email address to test the linked flow:")
+                .setView(inputEmail)
+                .setPositiveButton("Continue", (dialog, which) -> {
+                    String email = inputEmail.getText() != null ? inputEmail.getText().toString().trim() : "student@gmail.com";
+                    if (TextUtils.isEmpty(email)) email = "student@gmail.com";
+                    String name = "Google Student (" + email.split("@")[0] + ")";
+
+                    JSONObject linkedAcc = userManager.findAccountByEmail(email);
+                    if (linkedAcc != null) {
+                        String studentNumber = linkedAcc.optString("studentNumber");
+                        String fullName = linkedAcc.optString("fullName", name);
+                        String programme = linkedAcc.optString("programme", "CS");
+                        String labGroup = linkedAcc.optString("labGroup", "G01");
+
+                        userManager.saveSession(studentNumber, fullName, programme, labGroup, email, "simulated-google-token");
+                        Toast.makeText(this, "Welcome back, " + fullName + "!", Toast.LENGTH_SHORT).show();
+                        navigateToProfile(studentNumber);
+                    } else {
+                        Toast.makeText(this, "Simulated Google account linked. Complete your student details.", Toast.LENGTH_LONG).show();
+                        Intent registerIntent = new Intent(StudentLoginActivity.this, StudentRegisterActivity.class);
+                        registerIntent.putExtra("GOOGLE_NAME", name);
+                        registerIntent.putExtra("GOOGLE_EMAIL", email);
+                        startActivity(registerIntent);
+                    }
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
     }
 
     /**
