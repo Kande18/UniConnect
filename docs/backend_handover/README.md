@@ -14,6 +14,7 @@ docs/backend_handover/
 ├── PART_2_BACKEND_API_SPECIFICATION.md                <-- Complete REST API Contracts & Endpoint Schemas
 ├── PART_3_DATABASE_SCHEMA_AND_MIGRATIONS.md           <-- MySQL Relational DDL, ERD & Seed Data Scripts
 ├── PART_4_ANDROID_INTEGRATION_AND_DATA_LAYER.md       <-- Android MVVM, Retrofit, Room & ViewModel Mappings
+├── PART_5_SYNC_AND_OFFLINE_STORAGE_HANDOVER.md        <-- Sync & Local Storage Guide for WorkManager & Room
 └── original_specs/                                    <-- Original Assignment & Architecture Inputs
     ├── INSTRUCTIONS.md                                <-- 1,400+ Line Master Assignment Instructions
     ├── DATA_CONTRACTS.md                              <-- Initial Data Contracts per Screen
