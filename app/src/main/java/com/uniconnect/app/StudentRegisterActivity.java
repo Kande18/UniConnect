@@ -124,8 +124,8 @@ public class StudentRegisterActivity extends AppCompatActivity {
     }
 
     private void setupGoogleSignIn() {
+        // Request basic profile and email without requestIdToken (which causes code 10 when used with Android client IDs)
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.google_client_id))
                 .requestEmail()
                 .requestProfile()
                 .build();
@@ -210,7 +210,17 @@ public class StudentRegisterActivity extends AppCompatActivity {
                     Toast.makeText(this, "Google account linked. Now enter your Student Number & Claim Code.", Toast.LENGTH_LONG).show();
                 }
             } catch (ApiException e) {
-                if (e.getStatusCode() != 12501) {
+                if (e.getStatusCode() == 10) {
+                    new com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
+                            .setTitle("Google Account Setup (Code 10)")
+                            .setMessage("Google Play Services returned Developer Error 10 (SHA-1 fingerprint not yet registered in Google Console).\n\nWould you like to simulate Google Sign-Up with test Google details?")
+                            .setPositiveButton("Simulate Google User", (dialog, which) -> {
+                                applyGoogleAccountData("Reagan Banda", "reagan.banda@gmail.com");
+                                Toast.makeText(this, "Google details pre-populated. Enter your student number & claim code.", Toast.LENGTH_LONG).show();
+                            })
+                            .setNegativeButton("Cancel", null)
+                            .show();
+                } else if (e.getStatusCode() != 12501) {
                     Toast.makeText(this, "Google Sign-Up failed (code " + e.getStatusCode() + "). You can register manually.", Toast.LENGTH_SHORT).show();
                 }
             }

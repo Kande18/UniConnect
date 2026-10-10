@@ -32,8 +32,10 @@ public class UserManager {
     private static final String KEY_AUTH_TOKEN = "key_auth_token";
     private static final String KEY_LOCAL_ACCOUNTS = "key_local_accounts";
 
-    // Default backend URL (supports Android Emulator and local development)
-    private static final String BACKEND_BASE_URL = "http://10.0.2.2:5000/api";
+    // Production Cloud Backend (Render Web Service + Supabase PostgreSQL):
+    private static final String CLOUD_BACKEND_BASE_URL = "https://uniconnect-backend-0l2w.onrender.com/api";
+    // Local Backend (Android Emulator & Local PC):
+    private static final String LOCAL_BACKEND_BASE_URL = "http://10.0.2.2:5000/api";
 
     private static UserManager instance;
     private final SharedPreferences prefs;
@@ -89,81 +91,89 @@ public class UserManager {
     }
 
     /**
-     * Attempts authentication with backend API, falling back to verified local accounts.
-     * NEVER accepts arbitrary or random credentials.
+     * Attempts authentication with live Render cloud backend, falling back to local server,
+     * and finally to verified local accounts. NEVER accepts arbitrary or random credentials.
      */
     public void attemptLogin(String studentNumber, String password, AuthCallback callback) {
         new Thread(() -> {
-            boolean networkSuccess = false;
-
-            try {
-                URL url = new URL(BACKEND_BASE_URL + "/auth/student-login");
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("POST");
-                conn.setRequestProperty("Content-Type", "application/json");
-                conn.setConnectTimeout(2500);
-                conn.setReadTimeout(2500);
-                conn.setDoOutput(true);
-
-                JSONObject body = new JSONObject();
-                body.put("studentNumber", studentNumber);
-                body.put("password", password);
-
-                try (OutputStream os = conn.getOutputStream()) {
-                    os.write(body.toString().getBytes(StandardCharsets.UTF_8));
-                }
-
-                int code = conn.getResponseCode();
-                if (code == 200) {
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                    StringBuilder sb = new StringBuilder();
-                    String line;
-                    while ((line = reader.readLine()) != null) sb.append(line);
-                    reader.close();
-
-                    JSONObject res = new JSONObject(sb.toString());
-                    if (res.optBoolean("success", true) && res.has("data")) {
-                        JSONObject data = res.getJSONObject("data");
-                        String token = data.optString("token", "");
-                        JSONObject user = data.getJSONObject("user");
-                        String name = user.optString("name", "Student");
-                        String prog = user.optString("programme", "CS");
-                        String group = user.optString("labGroup", "G01");
-
-                        saveSession(studentNumber, name, prog, group, "", token);
-                        networkSuccess = true;
-                        mainHandler.post(() -> callback.onSuccess(studentNumber, name, prog, group));
-                        return;
-                    }
-                } else if (code == 400 || code == 401 || code == 403) {
-                    // Backend explicitly rejected the credentials
-                    mainHandler.post(() -> callback.onError("Wrong credentials. Please check your student number and password."));
-                    return;
-                }
-            } catch (Exception ignored) {
-                // Network unreachable or timeout -> fall back to verified local store
+            // Priority 1: Cloud Backend (Render + Supabase)
+            if (tryRemoteLogin(CLOUD_BACKEND_BASE_URL, studentNumber, password, callback)) {
+                return;
             }
 
-            if (!networkSuccess) {
-                // Verify against verified local store
-                JSONObject matched = findLocalAccount(studentNumber, password);
-                if (matched != null) {
-                    String name = matched.optString("fullName", "Student");
-                    String prog = matched.optString("programme", "CS");
-                    String group = matched.optString("labGroup", "G01");
-                    String email = matched.optString("email", "");
+            // Priority 2: Local Backend (Localhost / PC)
+            if (tryRemoteLogin(LOCAL_BACKEND_BASE_URL, studentNumber, password, callback)) {
+                return;
+            }
 
-                    saveSession(studentNumber, name, prog, group, email, "local-verified-token");
-                    mainHandler.post(() -> callback.onSuccess(studentNumber, name, prog, group));
-                } else {
-                    mainHandler.post(() -> callback.onError("Wrong credentials. Please check your student number and password."));
-                }
+            // Priority 3: Verified local offline accounts
+            JSONObject matched = findLocalAccount(studentNumber, password);
+            if (matched != null) {
+                String name = matched.optString("fullName", "Student");
+                String prog = matched.optString("programme", "CS");
+                String group = matched.optString("labGroup", "G01");
+                String email = matched.optString("email", "");
+
+                saveSession(studentNumber, name, prog, group, email, "local-verified-token");
+                mainHandler.post(() -> callback.onSuccess(studentNumber, name, prog, group));
+            } else {
+                mainHandler.post(() -> callback.onError("Wrong credentials. Please check your student number and password."));
             }
         }).start();
     }
 
+    private boolean tryRemoteLogin(String baseUrl, String studentNumber, String password, AuthCallback callback) {
+        try {
+            URL url = new URL(baseUrl + "/auth/student-login");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setConnectTimeout(4000);
+            conn.setReadTimeout(4000);
+            conn.setDoOutput(true);
+
+            JSONObject body = new JSONObject();
+            body.put("studentNumber", studentNumber);
+            body.put("password", password);
+
+            try (OutputStream os = conn.getOutputStream()) {
+                os.write(body.toString().getBytes(StandardCharsets.UTF_8));
+            }
+
+            int code = conn.getResponseCode();
+            if (code == 200) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                StringBuilder sb = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) sb.append(line);
+                reader.close();
+
+                JSONObject res = new JSONObject(sb.toString());
+                if (res.optBoolean("success", true) && res.has("data")) {
+                    JSONObject data = res.getJSONObject("data");
+                    String token = data.optString("token", "");
+                    JSONObject user = data.getJSONObject("user");
+                    String name = user.optString("name", "Student");
+                    String prog = user.optString("programme", "CS");
+                    String group = user.optString("labGroup", "G01");
+
+                    saveSession(studentNumber, name, prog, group, "", token);
+                    mainHandler.post(() -> callback.onSuccess(studentNumber, name, prog, group));
+                    return true;
+                }
+            } else if (code == 400 || code == 401 || code == 403) {
+                // Server explicitly rejected the credentials
+                mainHandler.post(() -> callback.onError("Wrong credentials. Please check your student number and password."));
+                return true; // Handled
+            }
+        } catch (Exception ignored) {
+            // Connection failed or timed out -> continue to next fallback
+        }
+        return false;
+    }
+
     /**
-     * Registers a new student account locally and syncs to backend.
+     * Registers a new student account locally and syncs to both cloud and local backend.
      */
     public boolean registerAccount(String studentNumber, String fullName, String programme, String claimCode, String password, String email) {
         try {
@@ -187,34 +197,39 @@ public class UserManager {
             accounts.put(newAcc);
             prefs.edit().putString(KEY_LOCAL_ACCOUNTS, accounts.toString()).apply();
 
-            // Fire-and-forget sync to backend
+            // Background sync to Render Cloud backend & Local backend
             new Thread(() -> {
-                try {
-                    URL url = new URL(BACKEND_BASE_URL + "/auth/register");
-                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                    conn.setRequestMethod("POST");
-                    conn.setRequestProperty("Content-Type", "application/json");
-                    conn.setConnectTimeout(3000);
-                    conn.setDoOutput(true);
-
-                    JSONObject body = new JSONObject();
-                    body.put("studentNumber", studentNumber);
-                    body.put("name", fullName);
-                    body.put("programme", programme);
-                    body.put("claimCode", claimCode);
-                    body.put("password", password);
-
-                    try (OutputStream os = conn.getOutputStream()) {
-                        os.write(body.toString().getBytes(StandardCharsets.UTF_8));
-                    }
-                    conn.getResponseCode();
-                } catch (Exception ignored) {}
+                sendRegisterPayload(CLOUD_BACKEND_BASE_URL, studentNumber, fullName, programme, claimCode, password);
+                sendRegisterPayload(LOCAL_BACKEND_BASE_URL, studentNumber, fullName, programme, claimCode, password);
             }).start();
 
             return true;
         } catch (Exception e) {
             return false;
         }
+    }
+
+    private void sendRegisterPayload(String baseUrl, String studentNumber, String name, String programme, String claimCode, String password) {
+        try {
+            URL url = new URL(baseUrl + "/auth/register");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setConnectTimeout(4000);
+            conn.setDoOutput(true);
+
+            JSONObject body = new JSONObject();
+            body.put("studentNumber", studentNumber);
+            body.put("name", name);
+            body.put("programme", programme);
+            body.put("claimCode", claimCode);
+            body.put("password", password);
+
+            try (OutputStream os = conn.getOutputStream()) {
+                os.write(body.toString().getBytes(StandardCharsets.UTF_8));
+            }
+            conn.getResponseCode();
+        } catch (Exception ignored) {}
     }
 
     /**
