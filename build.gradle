@@ -5,7 +5,7 @@ buildscript {
     }
     dependencies {
         // Android Gradle Plugin – version compatible with current Android Studio
-        classpath 'com.android.tools.build:gradle:8.13.2'
+        classpath 'com.android.tools.build:gradle:9.4.1'
     }
 }
 
