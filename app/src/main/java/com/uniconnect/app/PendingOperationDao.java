@@ -13,7 +13,7 @@ public abstract class PendingOperationDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public abstract void insertPendingOperation(PendingOperation operation);
 
-    @Query("SELECT * FROM pending_operations WHERE accountId = :accountId ORDER BY operationId ASC")
+    @Query("SELECT * FROM pending_operations WHERE accountId = :accountId ORDER BY rowid ASC")
     public abstract List<PendingOperation> getPendingOperationsForAccount(String accountId);
 
     @Query("UPDATE pending_operations SET syncStatus = :status WHERE operationId = :operationId")
