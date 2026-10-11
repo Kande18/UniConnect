@@ -7,10 +7,12 @@ import java.util.concurrent.Executors;
 public class SyncRepository {
 
     private final AppDatabase db;
+    private final Context appContext; // added by Janet
     private final PendingOperationDao pendingOperationDao;
     private final ExecutorService executorService;
 
     public SyncRepository(Context context) {
+        appContext = context.getApplicationContext(); // Added by Janet
         db = AppDatabase.getDatabase(context);
         pendingOperationDao = db.pendingOperationDao();
         executorService = Executors.newSingleThreadExecutor();
@@ -29,6 +31,7 @@ public class SyncRepository {
                 // Save/insert the sync tracking operation in the same transaction
                 pendingOperationDao.insertPendingOperation(operation);
             });
+            SyncScheduler.schedule(appContext,operation.getAccountId()); // Added by Janet
         });
     }
 
