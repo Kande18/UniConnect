@@ -106,7 +106,7 @@ public class SyncWorker extends Worker {
     private int push(PendingOperation op, String token) throws IOException, JSONException {
         JSONObject mutation = new JSONObject();
         mutation.put("mutationId", op.getOperationId());
-        mutation.put("entity", "student");
+        mutation.put("entity", "STUDENT");
         mutation.put("entityId", op.getStudentId());
         mutation.put("action", op.getOperationType());
         mutation.put("clientVersion", op.getBaseVersion());
@@ -138,15 +138,18 @@ public class SyncWorker extends Worker {
             String text = readAll(code >= 400 ? conn.getErrorStream() : conn.getInputStream());
 
             if (code == 200 || code == 201) {
-                if (text.isEmpty()) {
+                JSONObject root = new JSONObject(text);
+                JSONObject data = root.optJSONObject("data");
+                if (data == null) {
+                    return OUTCOME_RETRY;
+                }
+                if (containsId(data.optJSONArray("applied"), op.getOperationId())) {
                     return OUTCOME_OK;
                 }
-                JSONObject root = new JSONObject(text);
-                if (containsId(root.optJSONArray("conflicts"), op.getOperationId())) {
-                    return OUTCOME_CONFLICT;
-                }
-                return OUTCOME_OK;
+                // listed as a conflict, or ignored by the server: needs a human
+                return OUTCOME_CONFLICT;
             }
+
             if (code == 409) {
                 return OUTCOME_CONFLICT;
             }
